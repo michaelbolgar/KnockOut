@@ -18,12 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow (frame: UIScreen.main.bounds)
 
 //        let viewController = ViewController()
-        let mainVC = MainViewController()
-//        let gameVC = GameViewController()
+//        let mainVC = MainViewController()
+        let gameVC = GameViewController()
 //        let helpVC = HelpViewController()
 //        let kategoryVC = KategoryViewController()
 
-        navigationController = UINavigationController(rootViewController: mainVC) // вот тут надо менять корневой контроллер на gameVC или helpVC или kategoryVC, чтобы видеть свой экран. Не забудьте раскомментить соответствующий контроллер выше))
+        navigationController = UINavigationController(rootViewController: gameVC) // вот тут надо менять корневой контроллер на gameVC или helpVC или kategoryVC, чтобы видеть свой экран. Не забудьте раскомментить соответствующий контроллер выше))
 
         window?.rootViewController = navigationController
 
