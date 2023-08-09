@@ -6,6 +6,7 @@ class GameViewController: UIViewController {
     
     //MARK: - Properties
     
+    private var isSelected = true
     private var timer: Timer?
     private var timeInterval: TimeInterval = 5.0
     private var playerFire: AVAudioPlayer?
@@ -39,7 +40,7 @@ class GameViewController: UIViewController {
     
     private lazy var exerciseLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 3
+        label.numberOfLines = 0
         label.textAlignment = .center
         label.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
         label.textColor = .purple
@@ -84,12 +85,25 @@ class GameViewController: UIViewController {
         return button
     }()
     
+    private lazy var pauseButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "pause.circle.fill"), style: .done, target: self, action: #selector(tapPause))
+        button.tintColor = .purple
+        return button
+    }()
+    
+    private lazy var backButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.backward.circle.fill"), style: .done, target: self, action: #selector(tapBack))
+        button.tintColor = .purple
+        return button
+    }()
+    
     //MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
+        setupNavigation()
         playFire()
         playBoom()
         
@@ -98,8 +112,6 @@ class GameViewController: UIViewController {
     //MARK: - Methods
     
     private func setupViews() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.titleView = titleLabel
         
         view.addSubview(image)
         view.addSubview(startButton)
@@ -134,7 +146,7 @@ class GameViewController: UIViewController {
         exerciseLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.center.equalToSuperview()
-            make.height.equalTo(150)
+            make.height.equalTo(220)
         }
         
         nextButton.snp.makeConstraints { make in
@@ -143,6 +155,13 @@ class GameViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(startButton.snp.top).inset(-16)
         }
+    }
+    
+    private func setupNavigation() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.titleView = titleLabel
+        navigationItem.rightBarButtonItem = pauseButton
+        navigationItem.leftBarButtonItem = backButton
     }
     
     //MARK: - Timer's methods
@@ -172,20 +191,40 @@ class GameViewController: UIViewController {
         }
     }
     
+    //MARK: - Button's targets
+    
     @objc private func tapStart() {
         hideStartButton()
         startAnimation()
     }
     
-    @objc private func tapButton() {
+    @objc private func tapBack() {
+        //        navigationController?.popToViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+    }
+    
+    @objc private func tapPause() {
         
+        guard let _ = timer?.isValid else { return }
+        
+        if isSelected {
+            pauseButton.image = UIImage(systemName: "play.circle.fill")
+            isSelected = false
+            timer?.invalidate()
+            animatedForPause()
+            playerBoom?.pause()
+            playerFire?.pause()
+        } else {
+            pauseButton.image = UIImage(systemName: "pause.circle.fill")
+            isSelected = true
+            startAnimation()
+        }
     }
     
     @objc private func tapNext() {
         UIView.animate(withDuration: 0.4) {
             self.exerciseLabel.alpha = 0
         } completion: { _ in
-            self.exerciseLabel.text = self.exerciseModel.random()
+            self.exerciseLabel.text = self.exerciseModel.randomTask()
             
             UIView.animate(withDuration: 0.4) {
                 self.exerciseLabel.alpha = 1
@@ -194,15 +233,17 @@ class GameViewController: UIViewController {
     }
     
     private func playFire() {
-        guard let sound = Bundle.main.path(forResource: "fire", ofType: "mp3") else { return }
-        
-        let url = URL(fileURLWithPath: sound)
-        
-        do {
-            playerFire = try AVAudioPlayer(contentsOf: url)
-            playerFire?.prepareToPlay()
-        } catch {
-            print(error)
+        if playerFire == nil {
+            guard let sound = Bundle.main.path(forResource: "fire", ofType: "mp3") else { return }
+            
+            let url = URL(fileURLWithPath: sound)
+            
+            do {
+                playerFire = try AVAudioPlayer(contentsOf: url)
+                playerFire?.prepareToPlay()
+            } catch {
+                print(error)
+            }
         }
     }
     
@@ -220,37 +261,60 @@ class GameViewController: UIViewController {
     }
     
     private func checkCounter() {
+        UserDef.shared.count = count
+        UserDef.shared.header = headerLabel.text
         if count == 80 {
             playerBoom?.play()
         }
     }
     
     private func exerciseLabelAnimated() {
-        headerLabel.text = "Проигравший выполняет задание"
         startButton.setTitle("Начать заново", for: .normal)
-        exerciseLabel.text = exerciseModel.random()
+        exerciseLabel.text = exerciseModel.randomTask()
         
         UIView.animate(withDuration: 0.7) {
-            self.boomImage.alpha = 0
-            self.exerciseLabel.alpha = 1.0
+            self.boomImage.alpha = 0.0
+            self.headerLabel.alpha = 0.0
             self.nextButton.alpha = 1.0
-            self.headerLabel.alpha = 1.0
             self.startButton.alpha = 1.0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.7) {
+                self.headerLabel.text = "Проигравший выполнянет задание"
+                self.headerLabel.alpha = 1.0
+                self.exerciseLabel.alpha = 1.0
+            }
         }
     }
     
     private func hideStartButton() {
         
         UIView.animate(withDuration: 0.7) {
-            self.navigationItem.titleView?.alpha = 0
-            self.startButton.alpha = 0
             self.headerLabel.alpha = 0
-            self.nextButton.alpha = 0
+            self.startButton.alpha = 0
+            self.exerciseLabel.alpha = 0.0
+            self.nextButton.alpha = 0.0
             self.boomImage.alpha = 1.0
-            self.exerciseLabel.alpha = 0
+        } completion: { _ in
+            self.headerLabel.text = self.exerciseModel.random()
+            
+            UIView.animate(withDuration: 0.2) {
+                self.headerLabel.alpha = 1.0
+            }
         }
     }
+    
+    private func animatedForPause() {
+        UIView.animate(withDuration: 0.7) {
+            self.startButton.alpha = 0
+            self.exerciseLabel.alpha = 0.0
+            self.nextButton.alpha = 0.0
+            self.boomImage.alpha = 1.0
+        }
+    }
+    
+    func load(count: Int, header: String) {
+        self.count = count
+        headerLabel.text = header
+        boomImage.image = UIImage(named: "animation\(count)")
+    }
 }
-
-
-

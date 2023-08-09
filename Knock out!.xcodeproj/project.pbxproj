@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB462B2B2A8354B8004F1B48 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB462B2A2A8354B8004F1B48 /* UserDefaults.swift */; };
 		EB92F5F62A8201B700EAAB00 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EB92F5F52A8201B700EAAB00 /* SnapKit */; };
 		EB92F5F92A8203A800EAAB00 /* DelaGothicOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB92F5F82A8203A800EAAB00 /* DelaGothicOne-Regular.ttf */; };
 		EB92F6032A822C6100EAAB00 /* fire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EB92F6022A822C6100EAAB00 /* fire.mp3 */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EB462B2A2A8354B8004F1B48 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		EB92F5F82A8203A800EAAB00 /* DelaGothicOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DelaGothicOne-Regular.ttf"; sourceTree = "<group>"; };
 		EB92F6022A822C6100EAAB00 /* fire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire.mp3; sourceTree = "<group>"; };
 		EB92F6042A8235EA00EAAB00 /* boom.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boom.mp3; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB462B292A835499004F1B48 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				EB462B2A2A8354B8004F1B48 /* UserDefaults.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		EB92F5F72A82039600EAAB00 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +111,7 @@
 				F468EF3E2A815EE8000157FA /* Controller */,
 				EB92F5F72A82039600EAAB00 /* Fonts */,
 				EB92F5FD2A820DA600EAAB00 /* Resourses */,
+				EB462B292A835499004F1B48 /* UserDefaults */,
 				F468EF2D2A812E2C000157FA /* Assets.xcassets */,
 				F468EF2F2A812E2C000157FA /* LaunchScreen.storyboard */,
 				F468EF322A812E2C000157FA /* Info.plist */,
@@ -221,6 +232,7 @@
 				F468EF3D2A815ECA000157FA /* KategoryViewController.swift in Sources */,
 				F468EF422A8163E5000157FA /* MainView.swift in Sources */,
 				F468EF292A812E2A000157FA /* ViewController.swift in Sources */,
+				EB462B2B2A8354B8004F1B48 /* UserDefaults.swift in Sources */,
 				F468EF252A812E2A000157FA /* AppDelegate.swift in Sources */,
 				F468EF392A815D63000157FA /* GameView.swift in Sources */,
 				F468EF3B2A815E1B000157FA /* HelpView.swift in Sources */,
