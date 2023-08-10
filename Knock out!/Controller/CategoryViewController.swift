@@ -17,7 +17,10 @@ class CategoryViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 150, height: 150)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
+        layout.itemSize = CGSize(width: 170, height: 170)
+        layout.sectionInset = UIEdgeInsets(top: 100, left: 10, bottom: 10, right: 10)
         view.delegate = self
         view.dataSource = self
         view.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
@@ -25,6 +28,17 @@ class CategoryViewController: UIViewController {
         view.backgroundColor = .clear
         return view
     }()
+    
+    private lazy var headerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Категории"
+        //label.numberOfLines = 3
+        label.textAlignment = .center
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
+        label.textColor = .purple
+        return label
+    }()
+    
     
     let backgroungImageView: UIImageView = {
         let imageView = UIImageView()
@@ -45,6 +59,8 @@ class CategoryViewController: UIViewController {
         
         view.addSubview(backgroungImageView)
         view.addSubview(collectionView)
+        view.addSubview(headerLabel)
+        
         
         backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         backgroungImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -55,6 +71,12 @@ class CategoryViewController: UIViewController {
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 10).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        
+        headerLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(65)
+        }
         
     }
 }
@@ -68,5 +90,5 @@ extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
         cell.categoryImageView.image = category[indexPath.row]
         return cell
-    }  
+    }
 }
