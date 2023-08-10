@@ -13,7 +13,8 @@ class CustomCell : UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(categoryImageView)
+        
+        contentView.addSubview(categoryImageView)
         categoryImageView.translatesAutoresizingMaskIntoConstraints = false
         categoryImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         categoryImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -28,5 +29,4 @@ class CustomCell : UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

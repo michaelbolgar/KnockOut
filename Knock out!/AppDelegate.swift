@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let helpVC = HelpViewController()
 //        let kategoryVC = KategoryViewController()
 
-        navigationController = UINavigationController(rootViewController: gameVC) // вот тут надо менять корневой контроллер на gameVC или helpVC или kategoryVC, чтобы видеть свой экран. Не забудьте раскомментить соответствующий контроллер выше))
+        navigationController = UINavigationController(rootViewController: CategoryViewController()) // вот тут надо менять корневой контроллер на gameVC или helpVC или kategoryVC, чтобы видеть свой экран. Не забудьте раскомментить соответствующий контроллер выше))
 
         window?.rootViewController = navigationController
 

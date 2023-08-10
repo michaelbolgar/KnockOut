@@ -6,19 +6,20 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CategoryViewController: UIViewController {
     
     lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewLayout()
+        let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 150, height: 150)
         view.delegate = self
         view.dataSource = self
         view.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
         return view
     }()
-    
-    
     
     let backgroungImageView: UIImageView = {
         let imageView = UIImageView()
@@ -28,13 +29,11 @@ class ViewController: UIViewController {
         return imageView
     }()
     
-    let category = [UIImage(named: "p1") , UIImage(named: "p2") , UIImage(named: "p3") , UIImage(named: "p4") , UIImage(named: "p5") , UIImage(named: "p6")]
-    
-    
-    
-    
+    let category = [UIImage(named: "bomb") , UIImage(named: "bomb") , UIImage(named: "bomb") , UIImage(named: "bomb") , UIImage(named: "bomb") , UIImage(named: "bomb")]
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .gray
         
         view.addSubview(backgroungImageView)
@@ -44,21 +43,16 @@ class ViewController: UIViewController {
         backgroungImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         backgroungImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         backgroungImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        
-        
-        
+
         collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor , constant: 10).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         
     }
-    
-   
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return category.count
     }
@@ -67,8 +61,5 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
         cell.categoryImageView.image = category[indexPath.row]
         return cell
-    }
-    
-    
-
+    }  
 }
