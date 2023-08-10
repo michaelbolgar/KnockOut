@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //        let viewController = ViewController()
 //        let mainVC = MainViewController()
-        let gameVC = GameViewController()
+//        let gameVC = GameViewController()
 //        let helpVC = HelpViewController()
 //        let kategoryVC = KategoryViewController()
 

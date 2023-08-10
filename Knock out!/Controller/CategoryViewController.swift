@@ -7,7 +7,12 @@
 import UIKit
 
 class CategoryViewController: UIViewController {
-    
+
+    //нужно ещё добавить лейбл по макету
+
+    //нужно также добавить картинку на ячейку и настроить появление галочки по тапу
+
+    //лучше отредактировать размер коллекшвью, а именно задать констрейнты с привязкой к краям экрана и без конкретной длины. Тогда коллекшнвью будет растягиваться в зависимости от размеров экрана (что очень актуально, так как есть айфоны разных размеров) и количества ячеек
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -28,7 +33,9 @@ class CategoryViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
+    //лучше сделать генерацию ячеек через цикл for in 1-4, чтобы не добавлять каждую ячейку вручную. Тогда у тебя будет одна картинка для всех (остальное можно будет удалить из ассетов) + можно будет в случае необходимости обновить код и добавить новые ячейки, просто увеличив число 4, без того чтобы вручную создавать новые объекты в массиве
+
     let category = [UIImage(named: "p1") , UIImage(named: "p2") , UIImage(named: "p3") , UIImage(named: "p4") , UIImage(named: "p5") , UIImage(named: "p6")]
 
     override func viewDidLoad() {
