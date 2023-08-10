@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 class KategoryViewController: UIViewController {
-
+    print("123")
 }
