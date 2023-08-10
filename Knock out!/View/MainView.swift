@@ -9,6 +9,14 @@ import Foundation
 import UIKit
 
 class MainView: UIView {
+
+    let explosionImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "explosion"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
     let bombImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "bomb"))
         imageView.contentMode = .scaleAspectFit
@@ -16,32 +24,64 @@ class MainView: UIView {
         return imageView
     }()
 
-    let button1: UIButton = {
+    let gameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Игра для компании"
+        label.textAlignment = .center
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 34)
+        return label
+    }()
+
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "БОМБА"
+        label.textAlignment = .center
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 50)
+        label.textColor = .systemPurple
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowOffset = CGSize (width: 4.0, height: 4.0)
+        label.layer.shadowOpacity = 0.6
+        label.layer.shadowRadius = 0.4
+        return label
+    }()
+
+    let startButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 35
+        button.layer.cornerRadius = 40
         button.setTitle("Старт игры", for: .normal)
         button.backgroundColor = .systemPurple
-        button.tintColor = .yellow
+//        button.tintColor = .yellow
+        button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = 1
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
-    let button2: UIButton = {
+    let categoryButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 35
-        button.setTitle("Продолжить", for: .normal)
-        button.backgroundColor = .systemPurple
-        button.tintColor = .yellow
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    let button3: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 35
+        button.layer.cornerRadius = 40
         button.setTitle("Категории", for: .normal)
         button.backgroundColor = .systemPurple
+//        button.tintColor = .yellow
+        button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = 1
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    let helpButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 25
+        button.setTitle("?", for: .normal)
+        button.backgroundColor = .systemPurple
         button.tintColor = .yellow
+        button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = 1
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -61,10 +101,14 @@ class MainView: UIView {
     
     
     func setupUI() {
+
+        addSubview(nameLabel)
+        addSubview(gameLabel)
+        addSubview(explosionImageView)
         addSubview(bombImageView)
-        addSubview(button1)
-        addSubview(button2)
-        addSubview(button3)
+        addSubview(startButton)
+        addSubview(categoryButton)
+        addSubview(helpButton)
         
         let backgroundImage = UIImage(named: "background")
         let backgroundImageView = UIImageView(image: backgroundImage)
@@ -74,37 +118,50 @@ class MainView: UIView {
         sendSubviewToBack(backgroundImageView)
         
         NSLayoutConstraint.activate([
+
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
-                   backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                   backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                   backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            bombImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            bombImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            bombImageView.heightAnchor.constraint(equalToConstant: 200),
-            bombImageView.widthAnchor.constraint(equalToConstant: 200),
-            
-            button1.widthAnchor.constraint(equalToConstant: 250),
-            button1.heightAnchor.constraint(equalToConstant: 50),
-            button1.centerXAnchor.constraint(equalTo: centerXAnchor),
-            button1.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            button2.widthAnchor.constraint(equalToConstant: 250),
-            button2.heightAnchor.constraint(equalToConstant: 50),
-            button2.topAnchor.constraint(equalTo: button1.bottomAnchor, constant: 20),
-            button2.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            button3.widthAnchor.constraint(equalToConstant: 250),
-            button3.heightAnchor.constraint(equalToConstant: 50),
-            button3.topAnchor.constraint(equalTo: button2.bottomAnchor, constant: 20),
-            button3.centerXAnchor.constraint(equalTo: centerXAnchor)
+            backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            gameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            gameLabel.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30),
+
+            nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            nameLabel.centerYAnchor.constraint(equalTo: gameLabel.bottomAnchor, constant: 30),
+
+            explosionImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            explosionImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            explosionImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -30),
+            explosionImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 30),
+
+            bombImageView.centerXAnchor.constraint(equalTo: explosionImageView.centerXAnchor),
+            bombImageView.centerYAnchor.constraint(equalTo: explosionImageView.centerYAnchor),
+            bombImageView.heightAnchor.constraint(equalToConstant: 265),
+            bombImageView.widthAnchor.constraint(equalToConstant: 265),
+
+            startButton.widthAnchor.constraint(equalToConstant: 274),
+            startButton.heightAnchor.constraint(equalToConstant: 78),
+            startButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            startButton.topAnchor.constraint(equalTo: bombImageView.bottomAnchor, constant: 80),
+
+            categoryButton.widthAnchor.constraint(equalToConstant: 274),
+            categoryButton.heightAnchor.constraint(equalToConstant: 78),
+            categoryButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 20),
+            categoryButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+
+            helpButton.widthAnchor.constraint(equalToConstant: 50),
+            helpButton.heightAnchor.constraint(equalToConstant: 50),
+            helpButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
+            helpButton.bottomAnchor.constraint(equalTo: categoryButton.bottomAnchor)
         ])
 
     }
 
     func setupButtonActions() {
-        button1.addTarget(self, action: #selector(button1Tapped), for: .touchUpInside)
-        button2.addTarget(self, action: #selector(button2Tapped), for: .touchUpInside)
-        button3.addTarget(self, action: #selector(button3Tapped), for: .touchUpInside)
+        startButton.addTarget(self, action: #selector(button1Tapped), for: .touchUpInside)
+        categoryButton.addTarget(self, action: #selector(button2Tapped), for: .touchUpInside)
+        helpButton.addTarget(self, action: #selector(button3Tapped), for: .touchUpInside)
     }
 
     @objc func button1Tapped() {
