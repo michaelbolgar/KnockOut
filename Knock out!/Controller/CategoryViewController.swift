@@ -29,7 +29,7 @@ class CategoryViewController: UIViewController {
         return imageView
     }()
     
-    let category = [UIImage(named: "bomb") , UIImage(named: "bomb") , UIImage(named: "bomb") , UIImage(named: "bomb") , UIImage(named: "bomb") , UIImage(named: "bomb")]
+    let category = [UIImage(named: "p1") , UIImage(named: "p2") , UIImage(named: "p3") , UIImage(named: "p4") , UIImage(named: "p5") , UIImage(named: "p6")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
