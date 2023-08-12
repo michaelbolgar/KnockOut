@@ -11,6 +11,7 @@ class GameViewController: UIViewController {
     private var timeInterval: TimeInterval = 5.0
     private var playerFire: AVAudioPlayer?
     private var playerBoom: AVAudioPlayer?
+    private var backgroundMusic: AVAudioPlayer?
     private var count: Int = 1 { didSet { checkCounter() }}
     private let exerciseModel = ExerciseModel()
     
@@ -19,6 +20,13 @@ class GameViewController: UIViewController {
     private lazy var image: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "background")
+        return image
+    }()
+    
+    private lazy var imageFire: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "image9")
+        image.alpha = 0
         return image
     }()
     
@@ -42,7 +50,7 @@ class GameViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         label.textColor = .purple
         label.alpha = 0.0
         return label
@@ -104,8 +112,10 @@ class GameViewController: UIViewController {
         
         setupViews()
         setupNavigation()
+        
         playFire()
         playBoom()
+        playBackground()
         
     }
     
@@ -119,6 +129,7 @@ class GameViewController: UIViewController {
         view.addSubview(boomImage)
         view.addSubview(exerciseLabel)
         view.addSubview(nextButton)
+        view.addSubview(imageFire)
         
         image.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -145,8 +156,8 @@ class GameViewController: UIViewController {
         
         exerciseLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
-            make.center.equalToSuperview()
             make.height.equalTo(220)
+            make.bottom.equalTo(nextButton.snp.top).inset(16)
         }
         
         nextButton.snp.makeConstraints { make in
@@ -154,6 +165,13 @@ class GameViewController: UIViewController {
             make.height.equalTo(78)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(startButton.snp.top).inset(-16)
+        }
+        
+        imageFire.snp.makeConstraints { make in
+            make.height.equalTo(240)
+            make.width.equalTo(200)
+            make.top.equalTo(headerLabel.snp.bottom).inset(-16)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -181,10 +199,12 @@ class GameViewController: UIViewController {
     @objc private func updateAnimation() {
         if count < 85 {
             playerFire?.play()
+            backgroundMusic?.play()
             DispatchQueue.main.async { self.boomImage.image = UIImage(named: "animation\(self.count)") }
             count += 1
         } else {
             playerFire?.stop()
+            backgroundMusic?.stop()
             stopAnimation()
             exerciseLabelAnimated()
             count = 1
@@ -213,6 +233,7 @@ class GameViewController: UIViewController {
             animatedForPause()
             playerBoom?.pause()
             playerFire?.pause()
+            backgroundMusic?.pause()
         } else {
             pauseButton.image = UIImage(systemName: "pause.circle.fill")
             isSelected = true
@@ -260,6 +281,20 @@ class GameViewController: UIViewController {
         }
     }
     
+    private func playBackground() {
+        guard let sound = Bundle.main.path(forResource: "backMusic", ofType: "mp3") else { return }
+        
+        let url = URL(fileURLWithPath: sound)
+        
+        do {
+            backgroundMusic = try AVAudioPlayer(contentsOf: url)
+            backgroundMusic?.prepareToPlay()
+            backgroundMusic?.volume = 0.1
+        } catch {
+            print(error)
+        }
+    }
+    
     private func checkCounter() {
         UserDef.shared.count = count
         UserDef.shared.header = headerLabel.text
@@ -282,6 +317,7 @@ class GameViewController: UIViewController {
                 self.headerLabel.text = "Проигравший выполнянет задание"
                 self.headerLabel.alpha = 1.0
                 self.exerciseLabel.alpha = 1.0
+                self.imageFire.alpha = 1.0
             }
         }
     }
@@ -294,6 +330,7 @@ class GameViewController: UIViewController {
             self.exerciseLabel.alpha = 0.0
             self.nextButton.alpha = 0.0
             self.boomImage.alpha = 1.0
+            self.imageFire.alpha = 0.0
         } completion: { _ in
             self.headerLabel.text = self.exerciseModel.random()
             
