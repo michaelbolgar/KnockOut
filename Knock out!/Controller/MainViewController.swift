@@ -164,7 +164,8 @@ class MainViewController: UIViewController {
     }
     
     @objc private func button1Tapped() {
-        navigationController?.pushViewController(GameViewController(), animated: true)
+        let gameVC = GameViewController()
+        navigationController?.pushViewController(gameVC, animated: true)
     }
     
     @objc private func button2Tapped() {
@@ -172,7 +173,6 @@ class MainViewController: UIViewController {
         guard let gameVC = UserDef.shared.loadUsedDef() else { return }
         continuousButton.isEnabled = true
         navigationController?.pushViewController(gameVC, animated: true)
-        
     }
     
     @objc private func button3Tapped() {

@@ -219,7 +219,7 @@ class GameViewController: UIViewController {
     }
     
     @objc private func tapBack() {
-        navigationController?.popToViewController(MainViewController(), animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @objc private func tapPause() {
