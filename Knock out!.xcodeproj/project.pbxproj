@@ -14,13 +14,15 @@
 		EB92F6052A8235EA00EAAB00 /* boom.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EB92F6042A8235EA00EAAB00 /* boom.mp3 */; };
 		EBA5FF262A827C3B009AF00A /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA5FF252A827C3B009AF00A /* ExerciseModel.swift */; };
 		EBAECC492A875EA60020D6F1 /* backMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EBAECC482A875EA60020D6F1 /* backMusic.mp3 */; };
+		EBBD54092A87C2320095188D /* CaregoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBD54082A87C2320095188D /* CaregoryViewController.swift */; };
+		EBBD540B2A87C23D0095188D /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBD540A2A87C23D0095188D /* CustomCell.swift */; };
+		EBBD540E2A87C2520095188D /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBD540D2A87C2520095188D /* CategoryModel.swift */; };
 		F468EF252A812E2A000157FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF242A812E2A000157FA /* AppDelegate.swift */; };
 		F468EF292A812E2A000157FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF282A812E2A000157FA /* ViewController.swift */; };
 		F468EF2E2A812E2C000157FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F468EF2D2A812E2C000157FA /* Assets.xcassets */; };
 		F468EF312A812E2C000157FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F468EF2F2A812E2C000157FA /* LaunchScreen.storyboard */; };
 		F468EF392A815D63000157FA /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF382A815D63000157FA /* GameView.swift */; };
 		F468EF3B2A815E1B000157FA /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF3A2A815E1B000157FA /* HelpView.swift */; };
-		F468EF3D2A815ECA000157FA /* KategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF3C2A815ECA000157FA /* KategoryViewController.swift */; };
 		F468EF422A8163E5000157FA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF412A8163E5000157FA /* MainView.swift */; };
 		F468EF442A816501000157FA /* KategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF432A816501000157FA /* KategoryView.swift */; };
 		F468EF462A8186FF000157FA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF452A8186FF000157FA /* MainViewController.swift */; };
@@ -35,6 +37,9 @@
 		EB92F6042A8235EA00EAAB00 /* boom.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boom.mp3; sourceTree = "<group>"; };
 		EBA5FF252A827C3B009AF00A /* ExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExerciseModel.swift; path = "Knock out!/Controller/ExerciseModel.swift"; sourceTree = SOURCE_ROOT; };
 		EBAECC482A875EA60020D6F1 /* backMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backMusic.mp3; sourceTree = "<group>"; };
+		EBBD54082A87C2320095188D /* CaregoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaregoryViewController.swift; sourceTree = "<group>"; };
+		EBBD540A2A87C23D0095188D /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		EBBD540D2A87C2520095188D /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		F468EF212A812E2A000157FA /* Knock out!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Knock out!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F468EF242A812E2A000157FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F468EF282A812E2A000157FA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,7 +48,6 @@
 		F468EF322A812E2C000157FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F468EF382A815D63000157FA /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		F468EF3A2A815E1B000157FA /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
-		F468EF3C2A815ECA000157FA /* KategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KategoryViewController.swift; sourceTree = "<group>"; };
 		F468EF412A8163E5000157FA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F468EF432A816501000157FA /* KategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KategoryView.swift; sourceTree = "<group>"; };
 		F468EF452A8186FF000157FA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +93,16 @@
 			path = Resourses;
 			sourceTree = "<group>";
 		};
+		EBBD540C2A87C2420095188D /* CategoryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EBBD54082A87C2320095188D /* CaregoryViewController.swift */,
+				EBBD540A2A87C23D0095188D /* CustomCell.swift */,
+				EBBD540D2A87C2520095188D /* CategoryModel.swift */,
+			);
+			path = CategoryViewController;
+			sourceTree = "<group>";
+		};
 		F468EF182A812E2A000157FA = {
 			isa = PBXGroup;
 			children = (
@@ -127,8 +141,8 @@
 			children = (
 				F468EF282A812E2A000157FA /* ViewController.swift */,
 				F468EF452A8186FF000157FA /* MainViewController.swift */,
-				F468EF3C2A815ECA000157FA /* KategoryViewController.swift */,
 				F468EF472A8187AC000157FA /* GameViewController.swift */,
+				EBBD540C2A87C2420095188D /* CategoryViewController */,
 				F468EF492A818810000157FA /* HelpViewController.swift */,
 			);
 			path = Controller;
@@ -233,16 +247,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F468EF3D2A815ECA000157FA /* KategoryViewController.swift in Sources */,
 				F468EF422A8163E5000157FA /* MainView.swift in Sources */,
+				EBBD540B2A87C23D0095188D /* CustomCell.swift in Sources */,
 				F468EF292A812E2A000157FA /* ViewController.swift in Sources */,
 				EB462B2B2A8354B8004F1B48 /* UserDefaults.swift in Sources */,
 				F468EF252A812E2A000157FA /* AppDelegate.swift in Sources */,
 				F468EF392A815D63000157FA /* GameView.swift in Sources */,
 				F468EF3B2A815E1B000157FA /* HelpView.swift in Sources */,
+				EBBD54092A87C2320095188D /* CaregoryViewController.swift in Sources */,
 				F468EF442A816501000157FA /* KategoryView.swift in Sources */,
 				F468EF482A8187AC000157FA /* GameViewController.swift in Sources */,
 				F468EF462A8186FF000157FA /* MainViewController.swift in Sources */,
+				EBBD540E2A87C2520095188D /* CategoryModel.swift in Sources */,
 				F468EF4A2A818810000157FA /* HelpViewController.swift in Sources */,
 				EBA5FF262A827C3B009AF00A /* ExerciseModel.swift in Sources */,
 			);
