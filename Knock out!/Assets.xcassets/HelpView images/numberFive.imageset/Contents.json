@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Другой ВопросnumberFour.png",
+      "filename" : "Другой ВопросnumberFive.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Другой ВопросnumberFour 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Другой ВопросnumberFour 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
