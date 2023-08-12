@@ -17,7 +17,16 @@ class HelpView: UIView {
         label.textColor = .purple
         label.numberOfLines = 0
         label.font = UIFont(name: "DelaGothicOne-Regular", size: 32)
+        return label
+    }()
 
+    private var categoryLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Категории"
+        label.textColor = .purple
+        label.numberOfLines = 0
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 32)
         return label
     }()
 
@@ -37,12 +46,37 @@ class HelpView: UIView {
     }()
 
     let backgroungImageView: UIImageView = {
-            let imageView = UIImageView()
-            imageView.image = UIImage(named: "background")
-            imageView.contentMode = .scaleAspectFill
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            return imageView
-        }()
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "background")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
+    private var categoryTextOne: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "В игре доступно 6 категорий и более 90 вопросов"
+        label.textAlignment = .center
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 26)
+        return label
+    }()
+
+    private var categoryTextTwo: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Можно выбрать сразу несколько категорий для игры"
+        label.textAlignment = .center
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 26)
+        return label
+    }()
+
+    var numberViews: [UIImageView] = []
+    private let photoSize: CGFloat = 45
 
     override init (frame: CGRect) {
         super.init(frame: frame)
@@ -53,9 +87,6 @@ class HelpView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    var numberViews: [UIImageView] = []
-    private let photoSize: CGFloat = 45
 
     private func createNumberView(_ number: Int) -> UIImageView? {
         if let image = UIImage (named: "helpViewImage\(number)") {
@@ -74,7 +105,6 @@ class HelpView: UIView {
         for i in 1...7 {
             if let imageView = createNumberView(i) {
                 imageView.contentMode = .scaleAspectFill
-//                imageView.backgroundColor = .systemPink
                 numberViews.append(imageView)
                 self.addSubview(imageView)
             }
@@ -83,7 +113,7 @@ class HelpView: UIView {
 
     private func layout(){
 
-        [backgroungImageView, headerLabel, startGame, textOne, textTwo, textThree, textFour, textFive, textSix, textSeven].forEach { self.addSubview($0) }
+        [backgroungImageView, headerLabel, startGame, textOne, textTwo, textThree, textFour, textFive, textSix, textSeven, categoryLabel, categoryTextOne, categoryTextTwo].forEach { self.addSubview($0) }
         createNumbers()
 
         let imageLeftnset: CGFloat = 10
@@ -167,7 +197,21 @@ class HelpView: UIView {
 
             textSeven.topAnchor.constraint(equalTo: textSix.bottomAnchor, constant: amongInset + 7),
             textSeven.leadingAnchor.constraint(equalTo: numberViews[6].trailingAnchor, constant: imageLabelInset),
-            textSeven.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -textRightInset)
+            textSeven.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -textRightInset),
+
+            categoryLabel.topAnchor.constraint(equalTo: textSeven.bottomAnchor, constant: 30),
+            categoryLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+
+            categoryTextOne.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 15),
+            categoryTextOne.centerXAnchor.constraint(equalTo: centerXAnchor),
+            categoryTextOne.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
+            categoryTextOne.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+
+            categoryTextTwo.topAnchor.constraint(equalTo: categoryTextOne.bottomAnchor, constant: 30),
+            categoryTextTwo.centerXAnchor.constraint(equalTo: centerXAnchor),
+            categoryTextTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
+            categoryTextTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+
         ])
     }
 }

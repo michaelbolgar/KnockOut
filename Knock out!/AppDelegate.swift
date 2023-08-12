@@ -25,12 +25,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let helpVC = HelpViewController()
         //        let kategoryVC = KategoryViewController()
         
-        navigationController = UINavigationController(rootViewController: helpVC) // вот тут надо менять корневой контроллер на gameVC или helpVC или kategoryVC, чтобы видеть свой экран. Не забудьте раскомментить соответствующий контроллер выше))
+        navigationController = UINavigationController(rootViewController: helpVC)
         
-        window?.rootViewController = navigationController
+        window?.rootViewController = createHelpViewController()
         self.window?.makeKeyAndVisible()
         
         return true
+    }
+
+    func createHelpViewController() -> UINavigationController {
+        let helpVC = HelpViewController()
+        helpVC.title = "Помощь"
+
+        let titleFont = UIFont(name: "DelaGothicOne-Regular", size: 10)
+        let titleColor = UIColor.systemPurple
+
+        let titleTextAttributes: [NSAttributedString.Key: Any] = [
+            .font: titleFont as Any,
+            .foregroundColor: titleColor
+            ]
+
+        helpVC.navigationController?.navigationBar.titleTextAttributes = titleTextAttributes
+        return UINavigationController(rootViewController: helpVC)
     }
     
     //MARK: - UserDefaults

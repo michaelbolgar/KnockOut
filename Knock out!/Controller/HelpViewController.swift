@@ -11,6 +11,12 @@ import UIKit
 class HelpViewController: UIViewController {
     let helpView = HelpView()
 
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -18,12 +24,23 @@ class HelpViewController: UIViewController {
     }
 
     func layout() {
-        view.addSubview(helpView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(helpView)
+        helpView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
+        scrollView.isScrollEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+
         NSLayoutConstraint.activate([
-            helpView.topAnchor.constraint(equalTo: view.topAnchor),
-            helpView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            helpView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            helpView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            helpView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            helpView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            helpView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            helpView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
     }
 }
