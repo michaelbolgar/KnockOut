@@ -98,7 +98,6 @@
 			children = (
 				EBBD54082A87C2320095188D /* CaregoryViewController.swift */,
 				EBBD540A2A87C23D0095188D /* CustomCell.swift */,
-				EBBD540D2A87C2520095188D /* CategoryModel.swift */,
 			);
 			path = CategoryViewController;
 			sourceTree = "<group>";
@@ -139,8 +138,8 @@
 		F468EF3E2A815EE8000157FA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F468EF282A812E2A000157FA /* ViewController.swift */,
 				F468EF452A8186FF000157FA /* MainViewController.swift */,
+				F468EF282A812E2A000157FA /* ViewController.swift */,
 				F468EF472A8187AC000157FA /* GameViewController.swift */,
 				EBBD540C2A87C2420095188D /* CategoryViewController */,
 				F468EF492A818810000157FA /* HelpViewController.swift */,
@@ -163,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				EBA5FF252A827C3B009AF00A /* ExerciseModel.swift */,
+				EBBD540D2A87C2520095188D /* CategoryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
