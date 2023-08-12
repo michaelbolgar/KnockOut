@@ -21,75 +21,19 @@ class HelpView: UIView {
         return label
     }()
 
-    private let textOne = DefaultHelpLabel(text: "Все игроки становятся в круг.")
+    private let textOne = DefaultHelpLabel(text: "Все игроки становятся в круг")
 
     private let textTwo = DefaultHelpLabel(text: "Первый игрок берет телефон и нажимает кнопку:")
 
-    private let textThree = DefaultHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”.")
+    private let textThree = DefaultHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”")
 
-    private let textFour = DefaultHelpLabel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку (правильность ответа определяют другие участники).")
+    private let textFour = DefaultHelpLabel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку (правильность ответа определяют другие участники)")
 
+    private let textFive = DefaultHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба")
 
-    private let textFive = DefaultHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба.")
-
-    private let textSix = DefaultHelpLabel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба.")
+    private let textSix = DefaultHelpLabel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба")
 
     private let textSeven = DefaultHelpLabel(text: "Проигравший игрок выполняет задания")
-
-    private var numberOne: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "numberOne")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-
-    private var numberTwo: UIImageView = {
-        let imageTwo = UIImageView()
-        imageTwo.image = UIImage(named: "numberTwo")
-        imageTwo.translatesAutoresizingMaskIntoConstraints = false
-
-        return imageTwo
-    }()
-
-    private var numberThree: UIImageView = {
-        let imageThree = UIImageView()
-        imageThree.image = UIImage(named: "numberThree")
-        imageThree.translatesAutoresizingMaskIntoConstraints = false
-
-        return imageThree
-    }()
-
-    private var numberFour: UIImageView = {
-        let numberFour = UIImageView()
-        numberFour.image = UIImage(named: "numberFour")
-        numberFour.translatesAutoresizingMaskIntoConstraints = false
-
-        return numberFour
-    }()
-
-    private var numberFive: UIImageView = {
-        let numberFive = UIImageView()
-        numberFive.image = UIImage(named: "numberFive")
-        numberFive.translatesAutoresizingMaskIntoConstraints = false
-
-        return numberFive
-    }()
-
-    private var numberSix: UIImageView = {
-        let numberSix = UIImageView()
-        numberSix.image = UIImage(named: "numberSix")
-        numberSix.translatesAutoresizingMaskIntoConstraints = false
-
-        return numberSix
-    }()
-
-    private var numberSeven: UIImageView = {
-        let numberSeven = UIImageView()
-        numberSeven.image = UIImage(named: "numberSeven")
-        numberSeven.translatesAutoresizingMaskIntoConstraints = false
-
-        return numberSeven
-    }()
 
     private var startGame: UIImageView = {
         let startGame = UIImageView()
@@ -107,6 +51,14 @@ class HelpView: UIView {
             return imageView
         }()
 
+//    private let number1: UIImageView = {
+//        let image = UIImageView()
+//        image.image = HelpViewNumberImages.makeImage(number: 1)
+//        image.translatesAutoresizingMaskIntoConstraints = false
+//        image.backgroundColor = .white
+//        return image
+//    }()
+
     override init (frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -117,116 +69,109 @@ class HelpView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+//    private let numberModel = HelpViewNumberImages.makeImage(number: <#T##Int#>)
+//
+//    let numberImage = HelpViewNumberImages.makeImage()
+//    let numberImageView = HelpViewImageView.makeImageView()
+//
+//    private func makeNumber(image: UIImage) -> [numberImageView] {
+//        let numberModel = UIImageView()
+//        let image = UIImage()
+//        for i in 1...7 {
+//            numberModel.translatesAutoresizingMaskIntoConstraints = false
+//            numberModel.backgroundColor = .white
+//        }
+//        return [numberModel]
+//    }
 
-    func layout(){
+    var numberViews: [UIImageView] = []
 
-        addSubview(backgroungImageView)
-        addSubview(textThree)
-        addSubview(headerLabel)
-        addSubview(textOne)
-        addSubview(textTwo)
-        addSubview(startGame)
-        addSubview(textFour)
-        addSubview(textFive)
-        addSubview(numberTwo)
-        addSubview(numberOne)
-        addSubview(numberThree)
-        addSubview(numberFour)
-        addSubview(numberFive)
-        addSubview(textSix)
-        addSubview(textSeven)
-        addSubview(numberSix)
-        addSubview(numberSeven)
+    private func createNumberView(_ number: Int) -> UIImageView? {
+        if let image = UIImage (named: "helpViewImage\(number)") {
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleToFill
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            return imageView
+        } else {
+            return nil
+        }
+    }
 
+    private func createNumbers() {
+        for i in 1...7 {
+            if let imageView = createNumberView(i) {
+                imageView.contentMode = .scaleAspectFill
+                imageView.backgroundColor = .white
+                numberViews.append(imageView)
+                self.addSubview(imageView)
+            }
+        }
+    }
+
+    private func layout(){
+
+        [backgroungImageView, headerLabel, textOne, textTwo].forEach { self.addSubview($0) }
+        createNumbers()
+
+//        let inset: CGFloat = 20
 
         NSLayoutConstraint.activate([
 
-            backgroungImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            backgroungImageView.topAnchor.constraint(equalTo: self.topAnchor),
             backgroungImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroungImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroungImageView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-
+            backgroungImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
 
             headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 80),
             headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            textOne.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: 61),
-            textOne.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            numberViews[0].topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
+//            numberViews[0].leadingAnchor.constraint(equalTo: leadingAnchor),
+//            numberViews[0].heightAnchor.constraint(equalToConstant: 60),
+//            numberViews[0].widthAnchor.constraint(equalToConstant: 60),
 
-            numberOne.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: 40),
-            numberOne.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
-            numberOne.heightAnchor.constraint(equalToConstant: 70),
-            numberOne.widthAnchor.constraint(equalToConstant: 70),
+//            textOne.centerYAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 40),
+//            textOne.centerXAnchor.constraint(equalTo: centerXAnchor),
+//
+//            numberViews[1].topAnchor.constraint(equalTo: numberViews[0].bottomAnchor, constant: 20),
+//            numberViews[1].leadingAnchor.constraint(equalTo: leadingAnchor),
+//            numberViews[1].heightAnchor.constraint(equalToConstant: 70),
+//            numberViews[1].widthAnchor.constraint(equalToConstant: 70),
 
-            numberThree.topAnchor.constraint(equalTo: startGame.topAnchor, constant: 30 ),
-            numberThree.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
-            numberThree.heightAnchor.constraint(equalToConstant: 70),
-            numberThree.widthAnchor.constraint(equalToConstant: 70),
+//            textOne.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            textTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 61),
+//            textTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -61),
+//            textTwo.topAnchor.constraint(equalTo: textOne.bottomAnchor, constant: inset)
 
-
-            numberFour.topAnchor.constraint(equalTo: textThree.topAnchor, constant: 53),
-            numberFour.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
-            numberFour.heightAnchor.constraint(equalToConstant: 70),
-            numberFour.widthAnchor.constraint(equalToConstant: 70),
-
-
-            numberFive.topAnchor.constraint(equalTo: textFour.topAnchor, constant: 115),
-            numberFive.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
-            numberFive.heightAnchor.constraint(equalToConstant: 70),
-            numberFive.widthAnchor.constraint(equalToConstant: 70),
-
-            numberSix.topAnchor.constraint(equalTo: textFive.topAnchor, constant: 61),
-            numberSix.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
-            numberSix.heightAnchor.constraint(equalToConstant: 70),
-            numberSix.widthAnchor.constraint(equalToConstant: 70),
-
-            numberSeven.topAnchor.constraint(equalTo: textSix.topAnchor, constant: 44),
-            numberSeven.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
-            numberSeven.heightAnchor.constraint(equalToConstant: 70),
-            numberSeven.widthAnchor.constraint(equalToConstant: 70),
-
-
-            numberTwo.topAnchor.constraint(equalTo: numberOne.topAnchor, constant: 61),
-            numberTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
-            numberTwo.heightAnchor.constraint(equalToConstant: 70),
-            numberTwo.widthAnchor.constraint(equalToConstant: 70),
-
-            textTwo.topAnchor.constraint(equalTo: self.textOne.topAnchor, constant: 61),
-            textTwo.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-
-            startGame.topAnchor.constraint(equalTo: self.textTwo.topAnchor, constant: 35),
-            startGame.centerXAnchor.constraint(equalTo: centerXAnchor),
-            startGame.heightAnchor.constraint(equalToConstant: 70),
-            startGame.widthAnchor.constraint(equalToConstant: 150),
-
-
-
-            textThree.topAnchor.constraint(equalTo: self.startGame.topAnchor, constant: 53),
-            textThree.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textThree.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-
-            textFour.topAnchor.constraint(equalTo: self.textThree.topAnchor, constant: 74),
-            textFour.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textFour.leftAnchor.constraint(equalTo: numberFour.leftAnchor, constant: 47),
-            textFour.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-
-
-            textFive.topAnchor.constraint(equalTo: self.textFour.topAnchor, constant: 137),
-            textFive.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textFive.leftAnchor.constraint(equalTo: numberFive.leftAnchor, constant: 46),
-            textFive.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-
-            textSix.topAnchor.constraint(equalTo: textFive.topAnchor, constant: 81),
-            textSix.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textSix.leftAnchor.constraint(equalTo: numberSix.leftAnchor, constant: 37),
-            textSix.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-
-
-            textSeven.topAnchor.constraint(equalTo: textSix.topAnchor, constant: 64),
-            textSeven.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textSeven.leftAnchor.constraint(equalTo: numberSeven.leftAnchor, constant: 30),
-            textSeven.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+//            numberViews[2].topAnchor.constraint(equalTo: numberViews[1].bottomAnchor, constant: 40),
+//            numberViews[2].leadingAnchor.constraint(equalTo: leadingAnchor),
+//            numberViews[2].heightAnchor.constraint(equalToConstant: 70),
+//            numberViews[2].widthAnchor.constraint(equalToConstant: 70),
+//
+//            numberViews[3].topAnchor.constraint(equalTo: numberViews[2].bottomAnchor, constant: 40),
+//            numberViews[3].leadingAnchor.constraint(equalTo: leadingAnchor),
+//            numberViews[3].heightAnchor.constraint(equalToConstant: 70),
+//            numberViews[3].widthAnchor.constraint(equalToConstant: 70),
+//
+//            numberViews[4].topAnchor.constraint(equalTo: numberViews[3].bottomAnchor, constant: 20),
+//            numberViews[4].leadingAnchor.constraint(equalTo: leadingAnchor),
+//            numberViews[4].heightAnchor.constraint(equalToConstant: 70),
+//            numberViews[4].widthAnchor.constraint(equalToConstant: 70),
+//
+//            numberViews[5].topAnchor.constraint(equalTo: numberViews[4].bottomAnchor, constant: 20),
+//            numberViews[5].leadingAnchor.constraint(equalTo: leadingAnchor),
+//            numberViews[5].heightAnchor.constraint(equalToConstant: 70),
+//            numberViews[5].widthAnchor.constraint(equalToConstant: 70),
+//
+//            numberViews[6].topAnchor.constraint(equalTo: numberViews[5].bottomAnchor, constant: 20),
+//            numberViews[6].leadingAnchor.constraint(equalTo: leadingAnchor),
+//            numberViews[6].heightAnchor.constraint(equalToConstant: 70),
+//            numberViews[6].widthAnchor.constraint(equalToConstant: 70),
+//
+//            startGame.topAnchor.constraint(equalTo: self.textTwo.topAnchor, constant: 35),
+//            startGame.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            startGame.heightAnchor.constraint(equalToConstant: 70),
+//            startGame.widthAnchor.constraint(equalToConstant: 150),
 
         ])
     }
