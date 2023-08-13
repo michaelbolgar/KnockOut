@@ -10,6 +10,9 @@ import UIKit
 
 class HelpView: UIView {
 
+    private var numberViews: [UIImageView] = []
+    private var photoSize: CGFloat = 45
+
     private var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -66,9 +69,6 @@ class HelpView: UIView {
         label.font = UIFont(name: "DelaGothicOne-Regular", size: 26)
         return label
     }()
-
-    var numberViews: [UIImageView] = []
-    private let photoSize: CGFloat = 45
 
     override init (frame: CGRect) {
         super.init(frame: frame)

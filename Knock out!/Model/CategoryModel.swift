@@ -18,7 +18,7 @@ struct CategoryModel {
     mutating func getModel() {
 
         var model = [
-            CategoryModel(name: "О размном", image: UIImage(named: "cat1") ?? UIImage()),
+            CategoryModel(name: "О разном", image: UIImage(named: "cat1") ?? UIImage()),
             CategoryModel(name: "Спорт и хобби", image: UIImage(named: "cat2") ?? UIImage()),
             CategoryModel(name: "Про жизнь", image: UIImage(named: "cat3") ?? UIImage()),
             CategoryModel(name: "Знаменитости", image: UIImage(named: "cat4") ?? UIImage()),

@@ -81,7 +81,7 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
             helpView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             helpView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             helpView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            helpView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            helpView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
     }
 
