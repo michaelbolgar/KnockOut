@@ -8,6 +8,6 @@
 import Foundation
 import UIKit
 
-class KategoryViewController: UIViewController {
+class CategoryViewController: UIViewController {
 
 }

@@ -45,14 +45,6 @@ class HelpView: UIView {
         return startGame
     }()
 
-    let backgroungImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "background")
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-
     private var categoryTextOne: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +105,7 @@ class HelpView: UIView {
 
     private func layout(){
 
-        [backgroungImageView, headerLabel, startGame, textOne, textTwo, textThree, textFour, textFive, textSix, textSeven, categoryLabel, categoryTextOne, categoryTextTwo].forEach { self.addSubview($0) }
+        [headerLabel, startGame, textOne, textTwo, textThree, textFour, textFive, textSix, textSeven, categoryLabel, categoryTextOne, categoryTextTwo].forEach { self.addSubview($0) }
         createNumbers()
 
         let imageLeftnset: CGFloat = 10
@@ -124,12 +116,7 @@ class HelpView: UIView {
 
         NSLayoutConstraint.activate([
 
-            backgroungImageView.topAnchor.constraint(equalTo: self.topAnchor),
-            backgroungImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroungImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroungImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-
-            headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
+            headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
             headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 
             numberViews[0].topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),

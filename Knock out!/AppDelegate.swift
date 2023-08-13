@@ -17,17 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         self.window = UIWindow (frame: UIScreen.main.bounds)
-        
-        //        let viewController = ViewController()
-//        let mainVC = MainViewController()
+
         let gameVC = GameViewController()
         currentGameVC = gameVC
-        let helpVC = HelpViewController()
-        //        let kategoryVC = KategoryViewController()
         
-        navigationController = UINavigationController(rootViewController: helpVC)
+//        navigationController = UINavigationController(rootViewController: mainVC)
         
-        window?.rootViewController = createHelpViewController()
+        window?.rootViewController = createMainViewController()
         self.window?.makeKeyAndVisible()
         
         return true
@@ -47,6 +43,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         helpVC.navigationController?.navigationBar.titleTextAttributes = titleTextAttributes
         return UINavigationController(rootViewController: helpVC)
+    }
+
+    func createMainViewController() -> UINavigationController {
+        let mainVC = MainViewController()
+        return UINavigationController(rootViewController: mainVC)
+    }
+
+    func createCategoryViewController() -> UINavigationController {
+        let categoryVC = CategoryViewController()
+        return UINavigationController(rootViewController: categoryVC)
     }
     
     //MARK: - UserDefaults

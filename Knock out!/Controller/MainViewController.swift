@@ -29,6 +29,7 @@ class MainViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Игра для компании"
         label.textAlignment = .center
+        label.textColor = .black
         label.font = UIFont(name: "DelaGothicOne-Regular", size: 30)
         return label
     }()
@@ -56,7 +57,7 @@ class MainViewController: UIViewController {
         button.setTitleColor(.yellow, for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(button3Tapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(helpButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -69,7 +70,7 @@ class MainViewController: UIViewController {
         button.setTitleColor(.yellow, for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(button1Tapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(startButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -82,7 +83,7 @@ class MainViewController: UIViewController {
         button.setTitleColor(.yellow, for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(button1Tapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -95,7 +96,7 @@ class MainViewController: UIViewController {
         button.setTitleColor(.yellow, for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(button2Tapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(continousButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -108,9 +109,9 @@ class MainViewController: UIViewController {
     
     private func setupUI() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.titleView = gameLabel
-        
+
         view.addSubview(backgroundImage)
+        view.addSubview(gameLabel)
         view.addSubview(nameLabel)
         view.addSubview(explosionImageView)
         view.addSubview(startButton)
@@ -121,10 +122,15 @@ class MainViewController: UIViewController {
         backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+
+        gameLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(view.snp.top).inset(100)
+        }
+
         nameLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(view.snp.top).inset(80)
+            make.top.equalTo(gameLabel.snp.bottom).inset(1)
         }
         
         explosionImageView.snp.makeConstraints { make in
@@ -158,24 +164,30 @@ class MainViewController: UIViewController {
         helpButton.snp.makeConstraints { make in
             make.size.equalTo(44)
             make.right.equalTo(-20)
-            make.top.equalTo(categoryButton.snp.bottom).inset(20)
+            make.bottom.equalTo(categoryButton.snp.bottom)
         }
         
     }
     
-    @objc private func button1Tapped() {
+    @objc private func startButtonAction() {
         let gameVC = GameViewController()
         navigationController?.pushViewController(gameVC, animated: true)
     }
     
-    @objc private func button2Tapped() {
+    @objc private func continousButtonAction() {
         
         guard let gameVC = UserDef.shared.loadUsedDef() else { return }
         continuousButton.isEnabled = true
         navigationController?.pushViewController(gameVC, animated: true)
     }
+
+    @objc private func categoryButtonAction() {
+        let categoryVC = CategoryViewController()
+        navigationController?.pushViewController(categoryVC, animated: true)
+    }
     
-    @objc private func button3Tapped() {
-        print("нажата третья кнопка")
+    @objc private func helpButtonAction() {
+        let helpVC = HelpViewController()
+        navigationController?.pushViewController(helpVC, animated: true)
     }
 }

@@ -52,7 +52,6 @@ class MainView: UIView {
         button.layer.cornerRadius = 40
         button.setTitle("Старт игры", for: .normal)
         button.backgroundColor = .systemPurple
-//        button.tintColor = .yellow
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
@@ -65,7 +64,6 @@ class MainView: UIView {
         button.layer.cornerRadius = 40
         button.setTitle("Категории", for: .normal)
         button.backgroundColor = .systemPurple
-//        button.tintColor = .yellow
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
@@ -159,9 +157,9 @@ class MainView: UIView {
     }
 
     func setupButtonActions() {
-        startButton.addTarget(self, action: #selector(button1Tapped), for: .touchUpInside)
-        categoryButton.addTarget(self, action: #selector(button2Tapped), for: .touchUpInside)
-        helpButton.addTarget(self, action: #selector(button3Tapped), for: .touchUpInside)
+//        startButton.addTarget(self, action: #selector(startButtonAction), for: .touchUpInside)
+//        categoryButton.addTarget(self, action: #selector(continousButtonAction), for: .touchUpInside)
+//        helpButton.addTarget(self, action: #selector(helpButtonAction), for: .touchUpInside)
     }
 
     @objc func button1Tapped() {
