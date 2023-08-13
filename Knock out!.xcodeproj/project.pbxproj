@@ -24,8 +24,6 @@
 		F468EF482A8187AC000157FA /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF472A8187AC000157FA /* GameViewController.swift */; };
 		F468EF4A2A818810000157FA /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF492A818810000157FA /* HelpViewController.swift */; };
 		F4B2D6D12A87A14800906DC6 /* DefaultHelpLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D6D02A87A14800906DC6 /* DefaultHelpLabel.swift */; };
-		F4B2D6D32A87B32F00906DC6 /* HelpViewNumberImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D6D22A87B32F00906DC6 /* HelpViewNumberImages.swift */; };
-		F4B2D6D52A87E9D600906DC6 /* HelpViewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D6D42A87E9D600906DC6 /* HelpViewImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,8 +45,6 @@
 		F468EF472A8187AC000157FA /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		F468EF492A818810000157FA /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		F4B2D6D02A87A14800906DC6 /* DefaultHelpLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHelpLabel.swift; sourceTree = "<group>"; };
-		F4B2D6D22A87B32F00906DC6 /* HelpViewNumberImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewNumberImages.swift; sourceTree = "<group>"; };
-		F4B2D6D42A87E9D600906DC6 /* HelpViewImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,8 +142,6 @@
 				EBA5FF252A827C3B009AF00A /* ExerciseModel.swift */,
 				F40218B12A8882CD0026B627 /* CategoryModel.swift */,
 				F4B2D6D02A87A14800906DC6 /* DefaultHelpLabel.swift */,
-				F4B2D6D22A87B32F00906DC6 /* HelpViewNumberImages.swift */,
-				F4B2D6D42A87E9D600906DC6 /* HelpViewImageView.swift */,
 				F40218AF2A8881B60026B627 /* CustomCell.swift */,
 			);
 			path = Model;
@@ -233,7 +227,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F468EF3D2A815ECA000157FA /* CategoryViewController.swift in Sources */,
-				F4B2D6D32A87B32F00906DC6 /* HelpViewNumberImages.swift in Sources */,
 				F40218B22A8882CD0026B627 /* CategoryModel.swift in Sources */,
 				EB462B2B2A8354B8004F1B48 /* UserDefaults.swift in Sources */,
 				F468EF252A812E2A000157FA /* AppDelegate.swift in Sources */,
@@ -243,7 +236,6 @@
 				F40218B02A8881B60026B627 /* CustomCell.swift in Sources */,
 				F468EF4A2A818810000157FA /* HelpViewController.swift in Sources */,
 				F4B2D6D12A87A14800906DC6 /* DefaultHelpLabel.swift in Sources */,
-				F4B2D6D52A87E9D600906DC6 /* HelpViewImageView.swift in Sources */,
 				EBA5FF262A827C3B009AF00A /* ExerciseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

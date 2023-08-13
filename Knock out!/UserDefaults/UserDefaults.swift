@@ -29,7 +29,7 @@ class UserDef: UserDefaultsProtocol {
     
     static let shared = UserDef()
     
-    private let defaults = UserDefaults.standard
+    let defaults = UserDefaults.standard
     
     //MARK: - Init
     
@@ -43,17 +43,26 @@ class UserDef: UserDefaultsProtocol {
     }
     
     func loadUsedDef() -> UIViewController? {
-
+        print("ХУЙ")
         guard let countValue = defaults.object(forKey: "count") as? Int,
               let headerText = defaults.object(forKey: "header") as? String else { return nil }
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
               let gameVC = appDelegate.currentGameVC else { return nil }
+        
         gameVC.load(count: countValue, header: headerText)
         
-        defaults.set(nil, forKey: "count")
-        defaults.set(nil, forKey: "header")
+        defaults.setValue(nil, forKey: "count")
+        defaults.setValue(nil, forKey: "header")
         
         return gameVC
+    }
+    
+    func checkState() -> Bool {
+        
+        guard defaults.object(forKey: "count") != nil,
+              defaults.object(forKey: "header") != nil else { return false }
+       
+        return true
     }
 }

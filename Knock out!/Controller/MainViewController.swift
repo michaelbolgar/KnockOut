@@ -94,6 +94,8 @@ class MainViewController: UIViewController {
         button.setTitle("Продолжить", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         button.setTitleColor(.yellow, for: .normal)
+        button.setTitleColor(.gray, for: .disabled)
+        button.isEnabled = UserDef.shared.checkState()
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
         button.addTarget(self, action: #selector(continousButtonAction), for: .touchUpInside)
@@ -108,6 +110,7 @@ class MainViewController: UIViewController {
     }
     
     private func setupUI() {
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         
         view.addSubview(backgroundImage)
@@ -175,9 +178,8 @@ class MainViewController: UIViewController {
     }
     
     @objc private func continousButtonAction() {
-        
+        continuousButton.isEnabled = false
         guard let gameVC = UserDef.shared.loadUsedDef() else { return }
-        continuousButton.isEnabled = true
         navigationController?.pushViewController(gameVC, animated: true)
     }
     

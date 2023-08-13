@@ -13,19 +13,18 @@ final class DefaultHelpLabel: UILabel {
         super.init(frame: .zero)
         self.text = text
         configure()
-
+        
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func configure() {
         textColor = .black
         numberOfLines = 0
         font = UIFont(name: "DelaGothicOne-Regular", size: 18)
         textAlignment = .center
-//        backgroundColor = .systemMint
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

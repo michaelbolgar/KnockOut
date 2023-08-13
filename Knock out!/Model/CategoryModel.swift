@@ -9,8 +9,8 @@ import UIKit
 
 struct CategoryModel {
 
-    var name: String
-    var image: UIImage
+    let name: String
+    let image: UIImage
     var isSelected: Bool? = false
     
 }

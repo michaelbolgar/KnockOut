@@ -17,37 +17,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         self.window = UIWindow (frame: UIScreen.main.bounds)
-
+        
         let gameVC = GameViewController()
         currentGameVC = gameVC
         
-        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
+        window?.rootViewController = createMainViewController()
         self.window?.makeKeyAndVisible()
         
         return true
     }
-
+    
     func createHelpViewController() -> UINavigationController {
         let helpVC = HelpViewController()
         helpVC.title = "Помощь"
-
+        
         let titleFont = UIFont(name: "DelaGothicOne-Regular", size: 10)
         let titleColor = UIColor.systemPurple
-
+        
         let titleTextAttributes: [NSAttributedString.Key: Any] = [
             .font: titleFont as Any,
             .foregroundColor: titleColor
-            ]
-
+        ]
+        
         helpVC.navigationController?.navigationBar.titleTextAttributes = titleTextAttributes
         return UINavigationController(rootViewController: helpVC)
     }
-
+    
     func createMainViewController() -> UINavigationController {
         let mainVC = MainViewController()
         return UINavigationController(rootViewController: mainVC)
     }
-
+    
     func createCategoryViewController() -> UINavigationController {
         let categoryVC = CategoryViewController()
         return UINavigationController(rootViewController: categoryVC)

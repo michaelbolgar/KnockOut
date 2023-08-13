@@ -8,7 +8,7 @@ class GameViewController: UIViewController {
     
     private var isSelected = true
     private var timer: Timer?
-    private var timeInterval: TimeInterval = 9.0
+    private var timeInterval: TimeInterval = 5.0
     private var playerFire: AVAudioPlayer?
     private var playerBoom: AVAudioPlayer?
     private var backgroundMusic: AVAudioPlayer?
@@ -213,13 +213,12 @@ class GameViewController: UIViewController {
     //MARK: - Button's targets
     
     @objc private func tapStart() {
-        hideStartButton()
+        hideStartButton(startButton)
         startAnimation()
     }
     
     @objc private func tapBack() {
-        timer?.invalidate()
-        timer = nil
+        stopAnimation()
         playerBoom = nil
         playerFire = nil
         backgroundMusic = nil
@@ -326,17 +325,24 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func hideStartButton() {
+    private func hideStartButton(_ sender: UIButton) {
         
         UIView.animate(withDuration: 0.7) {
-            self.headerLabel.alpha = 0
+            
+            if sender.currentTitle != "Продолжить" {
+                self.headerLabel.alpha = 0
+            }
+            
             self.startButton.alpha = 0
             self.exerciseLabel.alpha = 0.0
             self.nextButton.alpha = 0.0
             self.boomImage.alpha = 1.0
             self.imageFire.alpha = 0.0
         } completion: { _ in
-            self.headerLabel.text = ExerciseModel.shared.random()
+            
+            if sender.currentTitle != "Продолжить" {
+                self.headerLabel.text = ExerciseModel.shared.random()
+            }
             
             UIView.animate(withDuration: 0.2) {
                 self.headerLabel.alpha = 1.0
@@ -357,5 +363,6 @@ class GameViewController: UIViewController {
         self.count = count
         headerLabel.text = header
         boomImage.image = UIImage(named: "animation\(count)")
+        startButton.setTitle("Продолжить", for: .normal)
     }
 }
