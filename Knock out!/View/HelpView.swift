@@ -73,6 +73,7 @@ class HelpView: UIView {
     override init (frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
+        createNumbers()
         layout()
     }
 
@@ -106,7 +107,6 @@ class HelpView: UIView {
     private func layout(){
 
         [headerLabel, startGame, textOne, textTwo, textThree, textFour, textFive, textSix, textSeven, categoryLabel, categoryTextOne, categoryTextTwo].forEach { self.addSubview($0) }
-        createNumbers()
 
         let imageLeftnset: CGFloat = 10
         let amongInset: CGFloat = 10

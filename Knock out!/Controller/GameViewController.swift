@@ -8,7 +8,7 @@ class GameViewController: UIViewController {
     
     private var isSelected = true
     private var timer: Timer?
-    private var timeInterval: TimeInterval = 5.0
+    private var timeInterval: TimeInterval = 9.0
     private var playerFire: AVAudioPlayer?
     private var playerBoom: AVAudioPlayer?
     private var backgroundMusic: AVAudioPlayer?
@@ -59,9 +59,9 @@ class GameViewController: UIViewController {
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.text = "Нажмите “Запустить” чтобы начать игру"
-        label.numberOfLines = 3
+        label.numberOfLines = 5
         label.textAlignment = .center
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 24)
         label.textColor = .purple
         return label
     }()
