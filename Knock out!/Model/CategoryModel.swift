@@ -12,5 +12,5 @@ struct CategoryModel {
     var name: String
     var image: UIImage
     var isSelected: Bool? = false
-
+    
 }

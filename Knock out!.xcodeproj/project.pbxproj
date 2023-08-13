@@ -20,7 +20,6 @@
 		F468EF2E2A812E2C000157FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F468EF2D2A812E2C000157FA /* Assets.xcassets */; };
 		F468EF3B2A815E1B000157FA /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF3A2A815E1B000157FA /* HelpView.swift */; };
 		F468EF3D2A815ECA000157FA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF3C2A815ECA000157FA /* CategoryViewController.swift */; };
-		F468EF422A8163E5000157FA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF412A8163E5000157FA /* MainView.swift */; };
 		F468EF462A8186FF000157FA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF452A8186FF000157FA /* MainViewController.swift */; };
 		F468EF482A8187AC000157FA /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF472A8187AC000157FA /* GameViewController.swift */; };
 		F468EF4A2A818810000157FA /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EF492A818810000157FA /* HelpViewController.swift */; };
@@ -44,7 +43,6 @@
 		F468EF322A812E2C000157FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F468EF3A2A815E1B000157FA /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		F468EF3C2A815ECA000157FA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		F468EF412A8163E5000157FA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F468EF452A8186FF000157FA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F468EF472A8187AC000157FA /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		F468EF492A818810000157FA /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 		F468EF3F2A815F2D000157FA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F468EF412A8163E5000157FA /* MainView.swift */,
 				F468EF3A2A815E1B000157FA /* HelpView.swift */,
 			);
 			path = View;
@@ -236,7 +233,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F468EF3D2A815ECA000157FA /* CategoryViewController.swift in Sources */,
-				F468EF422A8163E5000157FA /* MainView.swift in Sources */,
 				F4B2D6D32A87B32F00906DC6 /* HelpViewNumberImages.swift in Sources */,
 				F40218B22A8882CD0026B627 /* CategoryModel.swift in Sources */,
 				EB462B2B2A8354B8004F1B48 /* UserDefaults.swift in Sources */,

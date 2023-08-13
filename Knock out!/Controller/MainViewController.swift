@@ -109,7 +109,7 @@ class MainViewController: UIViewController {
     
     private func setupUI() {
         navigationController?.navigationBar.prefersLargeTitles = true
-
+        
         view.addSubview(backgroundImage)
         view.addSubview(gameLabel)
         view.addSubview(nameLabel)
@@ -122,12 +122,12 @@ class MainViewController: UIViewController {
         backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-
+        
         gameLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.snp.top).inset(100)
         }
-
+        
         nameLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(gameLabel.snp.bottom).inset(1)
@@ -135,8 +135,8 @@ class MainViewController: UIViewController {
         
         explosionImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(374)
-            make.height.equalTo(408)
+            make.width.equalTo(354)
+            make.height.equalTo(388)
             make.top.equalTo(nameLabel.snp.bottom).inset(10)
         }
         
@@ -150,21 +150,21 @@ class MainViewController: UIViewController {
         continuousButton.snp.makeConstraints { make in
             make.width.equalTo(274)
             make.height.equalTo(78)
-            make.top.equalTo(startButton.snp.bottom).inset(-20)
+            make.top.equalTo(startButton.snp.bottom).inset(-10)
             make.centerX.equalToSuperview()
         }
         
         categoryButton.snp.makeConstraints { make in
             make.width.equalTo(274)
             make.height.equalTo(78)
-            make.top.equalTo(continuousButton.snp.bottom).inset(-20)
+            make.top.equalTo(continuousButton.snp.bottom).inset(-10)
             make.centerX.equalToSuperview()
         }
         
         helpButton.snp.makeConstraints { make in
             make.size.equalTo(44)
-            make.right.equalTo(-20)
-            make.bottom.equalTo(categoryButton.snp.bottom)
+            make.right.equalTo(-8)
+            make.top.equalTo(continuousButton.snp.bottom).inset(16)
         }
         
     }
@@ -180,7 +180,7 @@ class MainViewController: UIViewController {
         continuousButton.isEnabled = true
         navigationController?.pushViewController(gameVC, animated: true)
     }
-
+    
     @objc private func categoryButtonAction() {
         let categoryVC = CategoryViewController()
         navigationController?.pushViewController(categoryVC, animated: true)

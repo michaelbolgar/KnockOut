@@ -104,7 +104,6 @@ extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDe
                 ExerciseModel.shared.index.remove(value)
             } else {
                 ExerciseModel.shared.index.insert(value)
-                print(value)
             }
         }
         

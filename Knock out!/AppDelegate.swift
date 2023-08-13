@@ -21,9 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let gameVC = GameViewController()
         currentGameVC = gameVC
         
-//        navigationController = UINavigationController(rootViewController: mainVC)
-        
-        window?.rootViewController = createMainViewController()
+        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
         self.window?.makeKeyAndVisible()
         
         return true
