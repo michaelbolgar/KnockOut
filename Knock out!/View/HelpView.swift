@@ -74,6 +74,71 @@ class HelpView: UIView {
         return label
     }()
 
+    private lazy var kategoryImageView1: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "differentImage"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    private lazy var kategoryImageView2: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "life"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    private lazy var kategoryImageView3: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "sport"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    private lazy var kategoryImageView4: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "celebrities"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    private lazy var topRowStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.spacing = 10
+        stackView.addArrangedSubview(kategoryImageView1)
+        stackView.addArrangedSubview(kategoryImageView2)
+        return stackView
+    }()
+
+    private lazy var bottomRowStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.spacing = 10
+        stackView.addArrangedSubview(kategoryImageView3)
+        stackView.addArrangedSubview(kategoryImageView4)
+        return stackView
+    }()
+
+    private lazy var categoriesStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.spacing = 10
+        stackView.addArrangedSubview(topRowStackView)
+        stackView.addArrangedSubview(bottomRowStackView)
+        return stackView
+    }()
+
+
     //MARK: - Init
 
     override init (frame: CGRect) {
@@ -114,7 +179,7 @@ class HelpView: UIView {
 
     private func layout(){
 
-        [headerLabel, startGame, textOne, textTwo, textThree, textFour, textFive, textSix, textSeven, categoryLabel, categoryTextOne, categoryTextTwo].forEach { self.addSubview($0) }
+        [headerLabel, startGame, textOne, textTwo, textThree, textFour, textFive, textSix, textSeven, categoryLabel, categoryTextOne, categoryTextTwo, categoriesStackView].forEach { self.addSubview($0) }
 
         let imageLeftnset: CGFloat = 10
         let amongInset: CGFloat = 10
@@ -207,6 +272,11 @@ class HelpView: UIView {
             categoryTextTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
             categoryTextTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
 
+            categoriesStackView.topAnchor.constraint(equalTo: categoryTextTwo.bottomAnchor, constant: 30),
+            categoriesStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            categoriesStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            categoriesStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            categoriesStackView.heightAnchor.constraint(equalToConstant: 400)
         ])
     }
 }
