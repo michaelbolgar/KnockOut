@@ -147,11 +147,11 @@
 			isa = PBXGroup;
 			children = (
 				EBA5FF252A827C3B009AF00A /* ExerciseModel.swift */,
+				F40218B12A8882CD0026B627 /* CategoryModel.swift */,
 				F4B2D6D02A87A14800906DC6 /* DefaultHelpLabel.swift */,
 				F4B2D6D22A87B32F00906DC6 /* HelpViewNumberImages.swift */,
 				F4B2D6D42A87E9D600906DC6 /* HelpViewImageView.swift */,
 				F40218AF2A8881B60026B627 /* CustomCell.swift */,
-				F40218B12A8882CD0026B627 /* CategoryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

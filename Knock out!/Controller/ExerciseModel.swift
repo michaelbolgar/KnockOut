@@ -5,11 +5,54 @@
 //  Created by sidzhe on 08.08.2023.
 //
 
-import Foundation
+import UIKit
 
-struct ExerciseModel {
+class ExerciseModel {
     
-    private var questions = [
+    static let shared = ExerciseModel()
+    
+    var index: Set<Int> = []
+    
+    private var model: [CategoryModel]?
+    
+    private var anyQuestions = [
+        "Назови три способа отлично провести время",
+        "Назови три ситуации, когда лучше быть пьяным",
+        "Назови три слова, которыми можешь описать себя",
+        "Назови три твоих любимых греха",
+        "Назови три причины диареи",
+        "Назови три способа отомстить бывшим",
+        "Назови три места, где лучше не делать на тату",
+        "Назови три самых красивых игрока в порядке убывания",
+        "Назови три части тела, которые забываешь мыть",
+        "Назови три причины заниматься спортом",
+        "Назови три звезды или селебрети",
+        "Назови три причины для расставания или развода",
+        "Назови три причины раздеться прямо сейчас",
+        "ННазови три зануды из присутствующих игроков",
+        "Назови три отрицательных персонажа из фильма"
+    ]
+    
+    private var lifeQuestions = [
+        "Назови три клевых сериала",
+        "Назови три настольных игры на подобии «Ответь за 5 секунд»",
+        "Назови три предмета, которые можно использовать в спальне",
+        "Назови три любимых блюда",
+        "Назови три способа предаться любовным утехам",
+        "Назови три своих секрета",
+        "Назови три причины напиться сегодня",
+        "Назови три прилагательных о себе",
+        "Назови три элемента из Периодической таблицы Менделеева",
+        "Назови три преимущества красивой внешности",
+        "Назови три пошлых слова",
+        "Назови три твоих фиаско в жизни",
+        "Назови три бесполезные вещи в твоем доме",
+        "Назови три причины спать без одежды",
+        "Назови три прочтенных книги"
+    ]
+    
+    private var moviesQuestions = [
+        
         "Назовите картины Леонардо да Винчи",
         "Назовите фильмы, снятые режиссёром Кристофером Ноланом",
         "Назовите известных скульпторов",
@@ -23,8 +66,10 @@ struct ExerciseModel {
         "Назовите известных музыкантов",
         "Назовите фильмы, в которых снимался Леонардо Ди Каприо",
         "Назовите фильмы, снятые режиссёром Тимом Бёртоном",
-        "Назовите известных русских композиторов",
-
+        "Назовите известных русских композиторов" ]
+    
+    private var natureQuestions = [
+        
         "Назовите хищных животных",
         "Назовите деревья с листьями (не с иголками!)",
         "Какие птицы являются перелётными",
@@ -39,8 +84,11 @@ struct ExerciseModel {
         "Назовите фрукты, относящиеся к цитрусовым",
         "Какие животные умеют лазить по деревьям?",
         "Какие цветы имеют лепестки оттенка красного?",
-        "Какие животные водятся в Австралии?",
-
+        "Какие животные водятся в Австралии?"
+    ]
+    
+    private var sportsQuestions = [
+        
         "Какие виды спорта требуют использования мяча?",
         "Назовите зимние виды олимпийских игр",
         "Назовите известных футболистов",
@@ -55,8 +103,11 @@ struct ExerciseModel {
         "Назовите страны, которые выигрывали чемпионат мира по футболу",
         "Какие виды спорта требуют использования ракетки?",
         "Какими видами спорта невозможно заниматься в помещении?",
-        "В каких видах спорта используется мяч?",
-
+        "В каких видах спорта используется мяч?"
+    ]
+    
+    private var artistsQuestions = [
+        
         "Назовите известных голливудских актеров",
         "Какие звезды музыкальной индустрии выступили на концерте 'Live Aid' в 1985 году?",
         "Назовите актеров, которые играли в саге 'Звездные войны'",
@@ -73,7 +124,6 @@ struct ExerciseModel {
         "Назовите знаменитые блюда французской кухни",
         "Назовите знаменитых путешественников и первооткрывателей"
     ]
-
     
     private var tasks = [
         "Петь Happy Birthday в одних носках на улице",
@@ -88,8 +138,70 @@ struct ExerciseModel {
         "Подарить стулу медаль за самую удобную поддержку"
     ]
     
+    private init() {}
+    
+    func createCategoryModel() {
+        
+        var category = [
+            CategoryModel(name: "О разном", image: UIImage(named: "cat1") ?? UIImage()),
+            CategoryModel(name: "Спорт и хобби", image: UIImage(named: "cat2") ?? UIImage()),
+            CategoryModel(name: "Про жизнь", image: UIImage(named: "cat3") ?? UIImage()),
+            CategoryModel(name: "Знаменитости", image: UIImage(named: "cat4") ?? UIImage()),
+            CategoryModel(name: "Искусство и кино", image: UIImage(named: "cat5") ?? UIImage()),
+            CategoryModel(name: "Природа", image: UIImage(named: "cat6") ?? UIImage())]
+        
+        index.forEach { value in
+            category[value].isSelected = !category[value].isSelected!
+        }
+        
+        model = category
+    }
+    
+    func getCategoryModel() -> [CategoryModel] {
+        createCategoryModel()
+        return model!
+    }
+    
     func random() -> String {
-        return questions[Int.random(in: 0..<questions.count)]
+        
+        var category = [String]()
+        
+        if index.isEmpty {
+            category.append(contentsOf: anyQuestions)
+            category.append(contentsOf: sportsQuestions)
+            category.append(contentsOf: lifeQuestions)
+            category.append(contentsOf: artistsQuestions)
+            category.append(contentsOf: moviesQuestions)
+            category.append(contentsOf: natureQuestions)
+        }
+        
+        index.forEach { index in
+            
+            switch index {
+                
+            case 0:
+                category.append(contentsOf: anyQuestions)
+            case 1:
+                category.append(contentsOf: sportsQuestions)
+            case 2:
+                category.append(contentsOf: lifeQuestions)
+            case 3:
+                category.append(contentsOf: artistsQuestions)
+            case 4:
+                category.append(contentsOf: moviesQuestions)
+            case 5:
+                category.append(contentsOf: natureQuestions)
+            default:
+                category.append(contentsOf: anyQuestions)
+                category.append(contentsOf: sportsQuestions)
+                category.append(contentsOf: lifeQuestions)
+                category.append(contentsOf: artistsQuestions)
+                category.append(contentsOf: moviesQuestions)
+                category.append(contentsOf: natureQuestions)
+            }
+        }
+        
+        return category[Int.random(in: 0..<category.count)]
     }
     
     func randomTask() -> String {

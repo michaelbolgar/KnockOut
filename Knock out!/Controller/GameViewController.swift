@@ -13,7 +13,6 @@ class GameViewController: UIViewController {
     private var playerBoom: AVAudioPlayer?
     private var backgroundMusic: AVAudioPlayer?
     private var count: Int = 1 { didSet { checkCounter() }}
-    private let exerciseModel = ExerciseModel()
     
     //MARK: - UI Elements
     
@@ -221,11 +220,8 @@ class GameViewController: UIViewController {
     @objc private func tapBack() {
         timer?.invalidate()
         timer = nil
-        playerBoom?.stop()
         playerBoom = nil
-        playerFire?.stop()
         playerFire = nil
-        backgroundMusic?.stop()
         backgroundMusic = nil
         navigationController?.popToRootViewController(animated: true)
     }
@@ -253,7 +249,7 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 0.4) {
             self.exerciseLabel.alpha = 0
         } completion: { _ in
-            self.exerciseLabel.text = self.exerciseModel.randomTask()
+            self.exerciseLabel.text = ExerciseModel.shared.randomTask()
             
             UIView.animate(withDuration: 0.4) {
                 self.exerciseLabel.alpha = 1
@@ -313,7 +309,7 @@ class GameViewController: UIViewController {
     
     private func exerciseLabelAnimated() {
         startButton.setTitle("Начать заново", for: .normal)
-        exerciseLabel.text = exerciseModel.randomTask()
+        exerciseLabel.text = ExerciseModel.shared.randomTask()
         
         UIView.animate(withDuration: 0.7) {
             self.boomImage.alpha = 0.0
@@ -340,7 +336,7 @@ class GameViewController: UIViewController {
             self.boomImage.alpha = 1.0
             self.imageFire.alpha = 0.0
         } completion: { _ in
-            self.headerLabel.text = self.exerciseModel.random()
+            self.headerLabel.text = ExerciseModel.shared.random()
             
             UIView.animate(withDuration: 0.2) {
                 self.headerLabel.alpha = 1.0

@@ -5,25 +5,13 @@
 //  Created by Михаил Болгар on 07.08.2023.
 //
 
-import Foundation
 import UIKit
 import SnapKit
 
 class CategoryViewController: UIViewController {
-
-    //MARK: - Properties
-
-    private var model = [
-        CategoryModel(name: "О разном", image: UIImage(named: "cat1") ?? UIImage()),
-        CategoryModel(name: "Спорт и хобби", image: UIImage(named: "cat2") ?? UIImage()),
-        CategoryModel(name: "Про жизнь", image: UIImage(named: "cat3") ?? UIImage()),
-        CategoryModel(name: "Знаменитости", image: UIImage(named: "cat4") ?? UIImage()),
-        CategoryModel(name: "Искусство и кино", image: UIImage(named: "cat5") ?? UIImage()),
-        CategoryModel(name: "Природа", image: UIImage(named: "cat6") ?? UIImage())
-    ]
-
+    
     //MARK: - UI Elements
-
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -37,7 +25,7 @@ class CategoryViewController: UIViewController {
         view.backgroundColor = .clear
         return view
     }()
-
+    
     let backgroungImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "background")
@@ -45,7 +33,7 @@ class CategoryViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.text = "Категории"
@@ -54,42 +42,42 @@ class CategoryViewController: UIViewController {
         label.font = UIFont(name: "DelaGothicOne-Regular", size: 30)
         return label
     }()
-
+    
     private lazy var backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "chevron.backward.circle.fill"), style: .done, target: self, action: #selector(tapBack))
         button.tintColor = .purple
         return button
     }()
-
+    
     //MARK: - Init
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupViews()
-
+        
     }
-
+    
     //MARK: - Methods
-
+    
     private func setupViews() {
-
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.titleView = headerLabel
         navigationItem.leftBarButtonItem = backButton
-
+        
         view.addSubview(backgroungImageView)
         view.addSubview(collectionView)
-
+        
         backgroungImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-
+        
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(16)
         }
     }
-
+    
     @objc private func tapBack() {
         navigationController?.popToRootViewController(animated: true)
     }
@@ -99,16 +87,27 @@ class CategoryViewController: UIViewController {
 
 extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model.count
+        return ExerciseModel.shared.getCategoryModel().count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
-
+        cell.checkButton.tag = indexPath.row
         cell.contentView.layer.cornerRadius = 45
         cell.contentView.layer.borderWidth = 1
         cell.contentView.layer.borderColor = UIColor.black.cgColor
-        cell.configure(model[indexPath.row])
+        cell.configure(ExerciseModel.shared.getCategoryModel()[indexPath.row])
+        
+        cell.completionHandler = { value in
+            
+            if ExerciseModel.shared.index.contains(value) {
+                ExerciseModel.shared.index.remove(value)
+            } else {
+                ExerciseModel.shared.index.insert(value)
+                print(value)
+            }
+        }
+        
         return cell
     }
 }
