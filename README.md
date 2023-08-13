@@ -15,3 +15,13 @@ Knock out! - динамичная игра для компании, в кото�
 2. Сколько игроков должно быть в игре?
 - Минимальное количество игроков - 2, рекомендуемое - 3+. Количество игроков не ограничено, чем больше - тем веселее :)
 
+## About
+Приложение было выполнено в рамках практического <a href="https://boosty.to/swiftmarathon?from=email" style="text-decoration:underline;">Swift-марафона</a> 
+
+
+Над приложением работали:   
+<a href="https://github.com/michaelbolgar" style="text-decoration:none;">Michael Bolgar</a> (Тимлид)   
+<a href="https://github.com/U-ggg" style="text-decoration:none;">Evgenii Sidorov</a>   
+<a href="https://github.com/medetkhanzhaniya" style="text-decoration:none;">Жания Медетхан</a>   
+<a href="https://github.com/erkanForester" style="text-decoration:none;">Erkan Kantemirov</a>   
+<a href="https://github.com/Ressevet" style="text-decoration:none;">Artem</a>
