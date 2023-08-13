@@ -219,6 +219,14 @@ class GameViewController: UIViewController {
     }
     
     @objc private func tapBack() {
+        timer?.invalidate()
+        timer = nil
+        playerBoom?.stop()
+        playerBoom = nil
+        playerFire?.stop()
+        playerFire = nil
+        backgroundMusic?.stop()
+        backgroundMusic = nil
         navigationController?.popToRootViewController(animated: true)
     }
     
