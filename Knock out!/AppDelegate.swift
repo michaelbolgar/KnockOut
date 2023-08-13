@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let gameVC = GameViewController()
         currentGameVC = gameVC
         
-        navigationController = UINavigationController(rootViewController: CategoryViewController()) // вот тут надо менять корневой контроллер на gameVC или helpVC или kategoryVC, чтобы видеть свой экран. Не забудьте раскомментить соответствующий контроллер выше))
-
+//        navigationController = UINavigationController(rootViewController: mainVC)
         
         window?.rootViewController = createMainViewController()
         self.window?.makeKeyAndVisible()
