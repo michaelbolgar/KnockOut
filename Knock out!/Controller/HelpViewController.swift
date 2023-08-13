@@ -60,7 +60,7 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(scrollView)
         scrollView.addSubview(backgroungImageView)
         scrollView.addSubview(helpView)
-        helpView.heightAnchor.constraint(equalToConstant: 1500).isActive = true
+        helpView.heightAnchor.constraint(equalToConstant: 1300).isActive = true
         scrollView.isScrollEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self

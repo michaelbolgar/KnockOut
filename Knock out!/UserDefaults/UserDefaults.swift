@@ -43,7 +43,6 @@ class UserDef: UserDefaultsProtocol {
     }
     
     func loadUsedDef() -> UIViewController? {
-        print("ХУЙ")
         guard let countValue = defaults.object(forKey: "count") as? Int,
               let headerText = defaults.object(forKey: "header") as? String else { return nil }
         
