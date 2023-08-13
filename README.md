@@ -20,8 +20,8 @@ Knock out! - динамичная игра для компании, в кото�
 
 
 Над приложением работали: 
-<a href="https://github.com/michaelbolgar" style="text-decoration:none;">Michael Bolgar</a> (Тимлид)
-<a href="https://github.com/U-ggg" style="text-decoration:none;">Evgenii Sidorov</a> 
-<a href="https://github.com/medetkhanzhaniya" style="text-decoration:none;">Жания Медетхан</a>
-<a href="https://github.com/erkanForester" style="text-decoration:none;">Erkan Kantemirov</a>
+<a href="https://github.com/michaelbolgar" style="text-decoration:none;">Michael Bolgar</a> (Тимлид)   
+<a href="https://github.com/U-ggg" style="text-decoration:none;">Evgenii Sidorov</a>   
+<a href="https://github.com/medetkhanzhaniya" style="text-decoration:none;">Жания Медетхан</a>   
+<a href="https://github.com/erkanForester" style="text-decoration:none;">Erkan Kantemirov</a>   
 <a href="https://github.com/Ressevet" style="text-decoration:none;">Artem</a>
