@@ -10,8 +10,12 @@ import UIKit
 
 class HelpView: UIView {
 
+    //MARK: - Properties
+
     private var numberViews: [UIImageView] = []
     private var photoSize: CGFloat = 45
+
+    //MARK: - UI Elements
 
     private var headerLabel: UILabel = {
         let label = UILabel()
@@ -70,6 +74,8 @@ class HelpView: UIView {
         return label
     }()
 
+    //MARK: - Init
+
     override init (frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +86,8 @@ class HelpView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    //MARK: - Methods
 
     private func createNumberView(_ number: Int) -> UIImageView? {
         if let image = UIImage (named: "helpViewImage\(number)") {

@@ -8,8 +8,12 @@
 import UIKit
 
 class HelpViewController: UIViewController, UIScrollViewDelegate {
-    
+
+    //MARK: - Properties
+
     let helpView = HelpView()
+
+    //MARK: - UI Elements
     
     let backgroungImageView: UIImageView = {
         let imageView = UIImageView()
@@ -40,14 +44,18 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
         button.tintColor = .purple
         return button
     }()
-    
+
+    //MARK: - Init
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
         setupNavigation()
     }
-    
+
+    //MARK: - Methods
+
     private func setupNavigation() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.titleView = titleLabel

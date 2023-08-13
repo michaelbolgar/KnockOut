@@ -9,7 +9,9 @@ import UIKit
 import SnapKit
 
 class MainViewController: UIViewController {
-    
+
+    //MARK: - UI Elements
+
     private lazy var backgroundImage = UIImageView(image: UIImage(named: "background"))
     
     private lazy var explosionImageView: UIImageView = {
@@ -101,14 +103,16 @@ class MainViewController: UIViewController {
         button.addTarget(self, action: #selector(continousButtonAction), for: .touchUpInside)
         return button
     }()
+
+    //MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
-        
     }
-    
+
+    //MARK: - Methods
+
     private func setupUI() {
         
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -169,9 +173,10 @@ class MainViewController: UIViewController {
             make.right.equalTo(-8)
             make.top.equalTo(continuousButton.snp.bottom).inset(16)
         }
-        
     }
-    
+
+    //MARK: - Button's targets
+
     @objc private func startButtonAction() {
         let gameVC = GameViewController()
         navigationController?.pushViewController(gameVC, animated: true)
