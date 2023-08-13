@@ -8,7 +8,7 @@ class GameViewController: UIViewController {
     
     private var isSelected = true
     private var timer: Timer?
-    private var timeInterval: TimeInterval = 5.0
+    private var timeInterval: TimeInterval = 10.0
     private var playerFire: AVAudioPlayer?
     private var playerBoom: AVAudioPlayer?
     private var backgroundMusic: AVAudioPlayer?
