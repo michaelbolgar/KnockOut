@@ -60,8 +60,8 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = backButton
-        navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController!.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     func layout() {
