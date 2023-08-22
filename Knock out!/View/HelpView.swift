@@ -19,7 +19,7 @@ class HelpView: UIView {
 
     //MARK: - UI Elements
 
-    private var rulesLabel: UILabel = {
+    private lazy var rulesLabel: UILabel = {
         let label = UILabel()
         label.text = "Правила Игры"
         label.textColor = .purple
@@ -28,13 +28,13 @@ class HelpView: UIView {
         return label
     }()
 
-    private let textOne = DefaultHelpLabel(text: "Все игроки становятся в круг")
-    private let textTwo = DefaultHelpLabel(text: "Первый игрок берёт телефон и нажимает кнопку: \n \n")
-    private let textThree = DefaultHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”")
-    private let textFour = DefaultHelpLabel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку")
-    private let textFive = DefaultHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба")
-    private let textSix = DefaultHelpLabel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба")
-    private let textSeven = DefaultHelpLabel(text: "Проигравший игрок должен выполнить задание")
+    private lazy var text1 = DefaultHelpLabel(text: "Все игроки становятся в круг")
+    private lazy var text2 = DefaultHelpLabel(text: "Первый игрок берёт телефон и нажимает кнопку: \n \n")
+    private lazy var text3 = DefaultHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”")
+    private lazy var text4 = DefaultHelpLabel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку")
+    private lazy var text5 = DefaultHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба")
+    private lazy var text6 = DefaultHelpLabel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба")
+    private lazy var text7 = DefaultHelpLabel(text: "Проигравший игрок должен выполнить задание")
 
     private var startGame: UIImageView = {
         let startGame = UIImageView()
@@ -42,7 +42,7 @@ class HelpView: UIView {
         return startGame
     }()
 
-    private var categoryLabel: UILabel = {
+    private lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Категории"
         label.textColor = .purple
@@ -52,7 +52,7 @@ class HelpView: UIView {
     }()
 
 
-    private var categoryTextOne: UILabel = {
+    private lazy var categoryTextOne: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "В игре доступно 6 категорий и более 90 вопросов"
@@ -63,7 +63,7 @@ class HelpView: UIView {
         return label
     }()
 
-    private var categoryTextTwo: UILabel = {
+    private lazy var categoryTextTwo: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Можно выбрать сразу несколько категорий для игры"
@@ -74,104 +74,18 @@ class HelpView: UIView {
         return label
     }()
 
-//    private lazy var kategoryImageView1: UIImageView = {
-//        let imageView = UIImageView(image: UIImage(named: "differentImage"))
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.contentMode = .scaleAspectFit
-//        return imageView
-//    }()
-//
-//    private lazy var kategoryImageView2: UIImageView = {
-//        let imageView = UIImageView(image: UIImage(named: "life"))
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.contentMode = .scaleAspectFit
-//        return imageView
-//    }()
-//
-//    private lazy var kategoryImageView3: UIImageView = {
-//        let imageView = UIImageView(image: UIImage(named: "sport"))
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.contentMode = .scaleAspectFit
-//        return imageView
-//    }()
-//
-//    private lazy var kategoryImageView4: UIImageView = {
-//        let imageView = UIImageView(image: UIImage(named: "celebrities"))
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.contentMode = .scaleAspectFit
-//        return imageView
-//    }()
-
-//    private lazy var topRowStackView: UIStackView = {
-//        let stackView = UIStackView()
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.axis = .horizontal
-//        stackView.distribution = .fillEqually
-//        stackView.alignment = .center
-//        stackView.spacing = 10
-//        stackView.addArrangedSubview(kategoryImageView1)
-//        stackView.addArrangedSubview(kategoryImageView2)
-//        return stackView
-//    }()
-//
-//    private lazy var bottomRowStackView: UIStackView = {
-//        let stackView = UIStackView()
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.axis = .horizontal
-//        stackView.distribution = .fillEqually
-//        stackView.alignment = .center
-//        stackView.spacing = 10
-//        stackView.addArrangedSubview(kategoryImageView3)
-//        stackView.addArrangedSubview(kategoryImageView4)
-//        return stackView
-//    }()
-//
-    private lazy var categoriesStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.spacing = 15
-        return stackView
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 150, height: 150)
+        layout.minimumLineSpacing = 12
+        view.delegate = self
+        view.dataSource = self
+        view.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
+        view.backgroundColor = .clear
+        return view
     }()
-
-    private lazy var firstRowStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.spacing = 15
-        return stackView
-    }()
-
-    private lazy var secondRowStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.spacing = 15
-        return stackView
-    }()
-
-    private func createCategoryElement() {
-        for i in 1...4 {
-            let elementView = UIImageView(image: UIImage(named: "cat\(i)"))
-            elementView.backgroundColor = .systemPurple
-            elementView.layer.cornerRadius = 20
-            elementView.layer.borderWidth = 1
-            elementView.layer.borderColor = UIColor.black.cgColor
-
-            if i <= 2 {
-                firstRowStackView.addArrangedSubview(elementView)
-            } else {
-                secondRowStackView.addArrangedSubview(elementView)
-            }
-        }
-
-        categoriesStackView.addArrangedSubview(firstRowStackView)
-        categoriesStackView.addArrangedSubview(secondRowStackView)
-    }
-
 
     //MARK: - Init
 
@@ -180,7 +94,6 @@ class HelpView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         createNumbers()
         createLabelPool()
-        createCategoryElement()
         layout()
     }
 
@@ -190,8 +103,6 @@ class HelpView: UIView {
 
     //MARK: - Methods
 
-    //перенести в отдельный файл
-    //внести массивы с лейблами и вью вручную, не внутри функции
     private func createNumberView(_ number: Int) -> UIImageView? {
         if let image = UIImage (named: "helpViewImage\(number)") {
             let imageView = UIImageView(image: image)
@@ -204,16 +115,6 @@ class HelpView: UIView {
         }
     }
 
-//    private func createLabel(_ number: String) -> UILabel? {
-//        if let label = UILabel() {
-//            let label = DefaultHelpLabel(text: <#T##String#>)
-//
-//            return label
-//        } else {
-//            return nil
-//        }
-//    }
-
     private func createNumbers() {
         for i in 1...7 {
             if let imageView = createNumberView(i) {
@@ -225,30 +126,19 @@ class HelpView: UIView {
     }
 
     private func createLabelPool() {
-        labelArray.append(textOne)
-        labelArray.append(textTwo)
-        labelArray.append(textThree)
-        labelArray.append(textFour)
-        labelArray.append(textFive)
-        labelArray.append(textSix)
-        labelArray.append(textSeven)
+        labelArray.append(text1)
+        labelArray.append(text2)
+        labelArray.append(text3)
+        labelArray.append(text4)
+        labelArray.append(text5)
+        labelArray.append(text6)
+        labelArray.append(text7)
         labelArray.forEach { self.addSubview($0) }
     }
 
-//    private func createCategoryModel() -> [CategoryModel] {
-//        let categoryViewPool = [
-//            CategoryModel(name: "О разном", image: UIImage(named: "cat1") ?? UIImage()),
-//            CategoryModel(name: "Спорт и хобби", image: UIImage(named: "cat2") ?? UIImage()),
-//            CategoryModel(name: "Про жизнь", image: UIImage(named: "cat3") ?? UIImage()),
-//            CategoryModel(name: "Знаменитости", image: UIImage(named: "cat4") ?? UIImage())
-//        ]
-//
-//        return categoryViewPool
-//    }
-
     private func layout() {
 
-        [rulesLabel, startGame, categoryLabel, categoryTextOne, categoryTextTwo, categoriesStackView].forEach { self.addSubview($0) }
+        [rulesLabel, startGame, categoryLabel, categoryTextOne, categoryTextTwo, collectionView].forEach { self.addSubview($0) }
 
         let amongInset: CGFloat = 20
 
@@ -267,7 +157,7 @@ class HelpView: UIView {
                 make.width.equalTo(photoSize)
                 make.height.equalTo(photoSize)
                 make.leading.equalTo(self.snp.leading).inset(5)
-                if let previousView = previousView {
+                if previousView != nil {
                     make.top.equalTo(previousLabel!.snp.bottom).offset(10)
                 } else {
                     make.top.equalTo(rulesLabel.snp.bottom).offset(amongInset)
@@ -312,26 +202,31 @@ class HelpView: UIView {
             make.trailing.equalTo(self.snp.trailing).inset(20)
         }
 
-        categoriesStackView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(categoryTextTwo.snp.bottom).offset(amongInset)
-            make.leading.equalTo(self.snp.leading).offset(50)
-            make.trailing.equalTo(self.snp.trailing).inset(50)
-            make.height.equalTo(250)
-
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(self.snp.leading).offset(30)
+            make.trailing.equalTo(self.snp.trailing).inset(30)
+            make.bottom.equalToSuperview().inset(amongInset)
         }
+    }
+}
 
-//            categoriesStackView.topAnchor.constraint(equalTo: categoryTextTwo.bottomAnchor, constant: 30),
-//            categoriesStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            categoriesStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-//            categoriesStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-//            categoriesStackView.heightAnchor.constraint(equalToConstant: 400)
+    //MARK: - Extension UICollectionViewDataSource, UICollectionViewDelegate
+
+extension HelpView: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
     }
 
-    //MARK: - Button's targets
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
+        cell.contentView.layer.cornerRadius = 45
+        cell.contentView.layer.borderWidth = 1
+        cell.contentView.layer.borderColor = UIColor.black.cgColor
+        cell.configure(ExerciseModel.shared.getCategoryModel()[indexPath.row])
+        cell.checkButton.isHidden = true
 
-    @objc
-    private func backButtonAction(){
-        print ("tapped back button")
+        return cell
     }
-
 }
