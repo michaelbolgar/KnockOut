@@ -53,7 +53,7 @@ class MainViewController: UIViewController {
     private lazy var helpButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .purple
-        button.layer.cornerRadius = 22
+        button.layer.cornerRadius = 20
         button.setTitle("?", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         button.setTitleColor(.yellow, for: .normal)
@@ -66,7 +66,7 @@ class MainViewController: UIViewController {
     private lazy var startButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .purple
-        button.layer.cornerRadius = 40
+        button.layer.cornerRadius = 30
         button.setTitle("Cтарт игры", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         button.setTitleColor(.yellow, for: .normal)
@@ -79,7 +79,7 @@ class MainViewController: UIViewController {
     private lazy var categoryButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .purple
-        button.layer.cornerRadius = 40
+        button.layer.cornerRadius = 30
         button.setTitle("Категории", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         button.setTitleColor(.yellow, for: .normal)
@@ -92,7 +92,7 @@ class MainViewController: UIViewController {
     private lazy var continuousButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .purple
-        button.layer.cornerRadius = 40
+        button.layer.cornerRadius = 30
         button.setTitle("Продолжить", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         button.setTitleColor(.yellow, for: .normal)
@@ -114,64 +114,68 @@ class MainViewController: UIViewController {
     //MARK: - Methods
 
     private func setupUI() {
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        view.addSubview(backgroundImage)
-        view.addSubview(gameLabel)
-        view.addSubview(nameLabel)
-        view.addSubview(explosionImageView)
-        view.addSubview(startButton)
-        view.addSubview(continuousButton)
-        view.addSubview(categoryButton)
-        view.addSubview(helpButton)
+
+//        navigationController?.navigationBar.prefersLargeTitles = true
+
+        let amongInset: CGFloat = 7
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let imageSize: CGFloat = (screenWidth - 30)
+        let buttonWidth: CGFloat = (screenWidth - 100)
+        let buttonHeight: CGFloat = (screenHeight / 12)
+
+        [backgroundImage, gameLabel, nameLabel, explosionImageView, startButton, continuousButton, categoryButton, helpButton].forEach { view.addSubview($0) }
         
         backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+
+        explosionImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.trailing.equalTo(view.snp.trailing).inset(20)
+            make.width.equalTo(imageSize)
+            make.height.equalTo(imageSize)
+        }
+
+        nameLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(explosionImageView.snp.top).inset(amongInset - 10)
+        }
         
         gameLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(view.snp.top).inset(100)
+            make.bottom.equalTo(nameLabel.snp.top).inset(amongInset - 10)
         }
-        
-        nameLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(gameLabel.snp.bottom).inset(1)
-        }
-        
-        explosionImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.width.equalTo(354)
-            make.height.equalTo(388)
-            make.top.equalTo(nameLabel.snp.bottom).inset(10)
-        }
-        
-        startButton.snp.makeConstraints { make in
-            make.width.equalTo(274)
-            make.height.equalTo(78)
-            make.top.equalTo(explosionImageView.snp.bottom).inset(25)
-            make.centerX.equalToSuperview()
-        }
-        
-        continuousButton.snp.makeConstraints { make in
-            make.width.equalTo(274)
-            make.height.equalTo(78)
-            make.top.equalTo(startButton.snp.bottom).inset(-10)
-            make.centerX.equalToSuperview()
-        }
-        
+
         categoryButton.snp.makeConstraints { make in
-            make.width.equalTo(274)
-            make.height.equalTo(78)
-            make.top.equalTo(continuousButton.snp.bottom).inset(-10)
             make.centerX.equalToSuperview()
+            make.width.equalTo(buttonWidth)
+            make.bottom.equalTo(view.snp.bottom).inset(15)
+            make.height.equalTo(buttonHeight)
         }
-        
+
+        startButton.snp.makeConstraints { make in
+            make.top.equalTo(explosionImageView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(buttonWidth)
+            make.height.equalTo(buttonHeight)
+        }
+
+        continuousButton.snp.makeConstraints { make in
+            make.top.equalTo(startButton.snp.bottom).offset(amongInset)
+            make.bottom.equalTo(categoryButton.snp.top).offset(-amongInset)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(buttonWidth)
+            make.height.equalTo(buttonHeight)
+        }
+
         helpButton.snp.makeConstraints { make in
-            make.size.equalTo(44)
-            make.right.equalTo(-8)
-            make.top.equalTo(continuousButton.snp.bottom).inset(16)
+            make.size.equalTo(40)
+            make.trailing.equalTo(view.snp.trailing).inset(20)
+            make.bottom.equalTo(gameLabel.snp.top).inset(-3)
+
         }
     }
 

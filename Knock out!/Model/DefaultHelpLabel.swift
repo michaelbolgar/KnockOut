@@ -23,8 +23,7 @@ final class DefaultHelpLabel: UILabel {
     private func configure() {
         textColor = .black
         numberOfLines = 0
-        font = UIFont(name: "DelaGothicOne-Regular", size: 18)
+        font = UIFont(name: "DelaGothicOne-Regular", size: 17)
         textAlignment = .center
-        translatesAutoresizingMaskIntoConstraints = false
     }
 }

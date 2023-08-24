@@ -60,19 +60,18 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = backButton
-        navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController!.navigationBar.shadowImage = UIImage()
     }
     
     func layout() {
         view.addSubview(scrollView)
         scrollView.addSubview(backgroungImageView)
         scrollView.addSubview(helpView)
-        helpView.heightAnchor.constraint(equalToConstant: 1600).isActive = true
-        scrollView.isScrollEnabled = true
-        scrollView.showsHorizontalScrollIndicator = false
+        helpView.heightAnchor.constraint(equalToConstant: 1400).isActive = true
+
         scrollView.delegate = self
-        
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isScrollEnabled = true
+
         NSLayoutConstraint.activate([
             
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -87,20 +86,14 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
             
             helpView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             helpView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            helpView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            helpView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             helpView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
+
+//        scrollView.contentSize = helpView.frame.size
     }
     
     @objc private func tapBack() {
         navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @objc func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 0 {
-            navigationController?.navigationBar.isHidden = true
-        } else {
-            navigationController?.navigationBar.isHidden = false
-        }
     }
 }

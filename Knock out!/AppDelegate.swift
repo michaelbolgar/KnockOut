@@ -29,17 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func createHelpViewController() -> UINavigationController {
         let helpVC = HelpViewController()
-        helpVC.title = "Помощь"
-        
-        let titleFont = UIFont(name: "DelaGothicOne-Regular", size: 10)
-        let titleColor = UIColor.systemPurple
-        
-        let titleTextAttributes: [NSAttributedString.Key: Any] = [
-            .font: titleFont as Any,
-            .foregroundColor: titleColor
-        ]
-        
-        helpVC.navigationController?.navigationBar.titleTextAttributes = titleTextAttributes
         return UINavigationController(rootViewController: helpVC)
     }
     

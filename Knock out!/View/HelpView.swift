@@ -7,19 +7,20 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class HelpView: UIView {
 
     //MARK: - Properties
 
     private var numberViews: [UIImageView] = []
-    private var photoSize: CGFloat = 45
+    private var labelArray: [UILabel] = []
+    private var photoSize: CGFloat = 40
 
     //MARK: - UI Elements
 
-    private var headerLabel: UILabel = {
+    private lazy var rulesLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Правила Игры"
         label.textColor = .purple
         label.numberOfLines = 0
@@ -27,9 +28,22 @@ class HelpView: UIView {
         return label
     }()
 
-    private var categoryLabel: UILabel = {
+    private lazy var text1 = DefaultHelpLabel(text: "Все игроки становятся в круг")
+    private lazy var text2 = DefaultHelpLabel(text: "Первый игрок берёт телефон и нажимает кнопку: \n \n")
+    private lazy var text3 = DefaultHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”")
+    private lazy var text4 = DefaultHelpLabel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку")
+    private lazy var text5 = DefaultHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба")
+    private lazy var text6 = DefaultHelpLabel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба")
+    private lazy var text7 = DefaultHelpLabel(text: "Проигравший игрок должен выполнить задание")
+
+    private var startGame: UIImageView = {
+        let startGame = UIImageView()
+        startGame.image = UIImage(named: "startGame")
+        return startGame
+    }()
+
+    private lazy var categoryLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Категории"
         label.textColor = .purple
         label.numberOfLines = 0
@@ -37,107 +51,41 @@ class HelpView: UIView {
         return label
     }()
 
-    private let textOne = DefaultHelpLabel(text: " Все игроки становятся в круг")
-    private let textTwo = DefaultHelpLabel(text: "Первый игрок берет телефон и нажимает кнопку:")
-    private let textThree = DefaultHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”")
-    private let textFour = DefaultHelpLabel(text: " Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку (правильность ответа определяют другие участники)")
-    private let textFive = DefaultHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба")
-    private let textSix = DefaultHelpLabel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба")
-    private let textSeven = DefaultHelpLabel(text: "Проигравший игрок должен выполнить задание")
 
-    private var startGame: UIImageView = {
-        let startGame = UIImageView()
-        startGame.image = UIImage(named: "startGame")
-        startGame.translatesAutoresizingMaskIntoConstraints = false
-        return startGame
-    }()
-
-    private var categoryTextOne: UILabel = {
+    private lazy var categoryTextOne: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "В игре доступно 6 категорий и более 90 вопросов"
         label.textAlignment = .center
         label.textColor = .black
         label.numberOfLines = 0
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 26)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 20)
         return label
     }()
 
-    private var categoryTextTwo: UILabel = {
+    private lazy var categoryTextTwo: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Можно выбрать сразу несколько категорий для игры"
         label.textAlignment = .center
         label.textColor = .black
         label.numberOfLines = 0
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 26)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 20)
         return label
     }()
 
-    private lazy var kategoryImageView1: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "differentImage"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 150, height: 150)
+        layout.minimumLineSpacing = 12
+        view.delegate = self
+        view.dataSource = self
+        view.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
+        view.backgroundColor = .clear
+        return view
     }()
-
-    private lazy var kategoryImageView2: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "life"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
-    private lazy var kategoryImageView3: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "sport"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
-    private lazy var kategoryImageView4: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "celebrities"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
-    private lazy var topRowStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .center
-        stackView.spacing = 10
-        stackView.addArrangedSubview(kategoryImageView1)
-        stackView.addArrangedSubview(kategoryImageView2)
-        return stackView
-    }()
-
-    private lazy var bottomRowStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .center
-        stackView.spacing = 10
-        stackView.addArrangedSubview(kategoryImageView3)
-        stackView.addArrangedSubview(kategoryImageView4)
-        return stackView
-    }()
-
-    private lazy var categoriesStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.alignment = .center
-        stackView.spacing = 10
-        stackView.addArrangedSubview(topRowStackView)
-        stackView.addArrangedSubview(bottomRowStackView)
-        return stackView
-    }()
-
 
     //MARK: - Init
 
@@ -145,6 +93,7 @@ class HelpView: UIView {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         createNumbers()
+        createLabelPool()
         layout()
     }
 
@@ -160,7 +109,6 @@ class HelpView: UIView {
             imageView.layer.cornerRadius = photoSize / 2
             imageView.contentMode = .scaleAspectFit
             imageView.clipsToBounds = true
-            imageView.translatesAutoresizingMaskIntoConstraints = false
             return imageView
         } else {
             return nil
@@ -177,106 +125,108 @@ class HelpView: UIView {
         }
     }
 
-    private func layout(){
+    private func createLabelPool() {
+        labelArray.append(text1)
+        labelArray.append(text2)
+        labelArray.append(text3)
+        labelArray.append(text4)
+        labelArray.append(text5)
+        labelArray.append(text6)
+        labelArray.append(text7)
+        labelArray.forEach { self.addSubview($0) }
+    }
 
-        [headerLabel, startGame, textOne, textTwo, textThree, textFour, textFive, textSix, textSeven, categoryLabel, categoryTextOne, categoryTextTwo, categoriesStackView].forEach { self.addSubview($0) }
+    private func layout() {
 
-        let imageLeftnset: CGFloat = 10
-        let amongInset: CGFloat = 10
-        let imageSize: CGFloat = 45
-        let imageLabelInset: CGFloat = 10
-        let textRightInset: CGFloat = 40
+        [rulesLabel, startGame, categoryLabel, categoryTextOne, categoryTextTwo, collectionView].forEach { self.addSubview($0) }
 
-        NSLayoutConstraint.activate([
+        let amongInset: CGFloat = 20
 
-            headerLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
-            headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+        rulesLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top)
+            make.centerX.equalToSuperview()
+        }
 
-            numberViews[0].topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
-            numberViews[0].leadingAnchor.constraint(equalTo: leadingAnchor, constant: imageLeftnset),
-            numberViews[0].heightAnchor.constraint(equalToConstant: imageSize),
-            numberViews[0].widthAnchor.constraint(equalToConstant: imageSize),
+        var previousView: UIView?
+        var previousLabel: UILabel?
 
-            textOne.centerYAnchor.constraint(equalTo: numberViews[0].centerYAnchor),
-            textOne.leadingAnchor.constraint(equalTo: numberViews[0].trailingAnchor, constant: imageLabelInset),
+        for (index, view) in numberViews.enumerated() {
+            let label = labelArray[index]
 
-            numberViews[1].topAnchor.constraint(equalTo: numberViews[0].bottomAnchor, constant: 20),
-            numberViews[1].leadingAnchor.constraint(equalTo: leadingAnchor, constant: imageLeftnset),
-            numberViews[1].heightAnchor.constraint(equalToConstant: imageSize),
-            numberViews[1].widthAnchor.constraint(equalToConstant: imageSize),
+            view.snp.makeConstraints { make in
+                make.width.equalTo(photoSize)
+                make.height.equalTo(photoSize)
+                make.leading.equalTo(self.snp.leading).inset(5)
+                if previousView != nil {
+                    make.top.equalTo(previousLabel!.snp.bottom).offset(10)
+                } else {
+                    make.top.equalTo(rulesLabel.snp.bottom).offset(amongInset)
+                }
+            }
 
-            textTwo.centerYAnchor.constraint(equalTo: numberViews[1].centerYAnchor, constant: 10),
-            textTwo.leadingAnchor.constraint(equalTo: numberViews[1].trailingAnchor, constant: imageLabelInset),
-            textTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -textRightInset),
+            label.snp.makeConstraints { make in
+                make.leading.equalTo(view.snp.trailing).offset(4)
+                make.top.equalTo(view.snp.top).inset(6)
+                make.trailing.equalTo(self.snp.trailing).inset(photoSize)
+            }
 
-            startGame.topAnchor.constraint(equalTo: textTwo.bottomAnchor, constant: 7),
-            startGame.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 5),
-            startGame.heightAnchor.constraint(equalToConstant: 40),
-            startGame.widthAnchor.constraint(equalToConstant: 140),
+            previousView = view
+            previousLabel = label
+            }
 
-            numberViews[2].topAnchor.constraint(equalTo: startGame.bottomAnchor, constant: amongInset),
-            numberViews[2].leadingAnchor.constraint(equalTo: leadingAnchor, constant: imageLeftnset),
-            numberViews[2].heightAnchor.constraint(equalToConstant: imageSize),
-            numberViews[2].widthAnchor.constraint(equalToConstant: imageSize),
+        startGame.snp.makeConstraints { make in
+            make.bottom.equalTo(labelArray[2].snp.top).inset(-12)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(130)
+            make.height.equalTo(45)
+        }
 
-            textThree.centerYAnchor.constraint(equalTo: numberViews[2].centerYAnchor, constant: 10),
-            textThree.leadingAnchor.constraint(equalTo: numberViews[2].trailingAnchor, constant: imageLabelInset),
-            textThree.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -textRightInset),
+        categoryLabel.snp.makeConstraints { make in
+            if let lastElement = labelArray.last {
+                make.top.equalTo(lastElement.snp.bottom).offset(amongInset + 10)
+                make.centerX.equalToSuperview()
+            }
+        }
 
-            numberViews[3].topAnchor.constraint(equalTo: numberViews[2].bottomAnchor, constant: 30),
-            numberViews[3].leadingAnchor.constraint(equalTo: leadingAnchor, constant: imageLeftnset),
-            numberViews[3].heightAnchor.constraint(equalToConstant: imageSize),
-            numberViews[3].widthAnchor.constraint(equalToConstant: imageSize),
+        categoryTextOne.snp.makeConstraints { make in
+            make.top.equalTo(categoryLabel.snp.bottom).offset(amongInset)
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.trailing.equalTo(self.snp.trailing).inset(20)
+        }
 
-            textFour.topAnchor.constraint(equalTo: textThree.bottomAnchor, constant: amongInset + 7),
-            textFour.leadingAnchor.constraint(equalTo: leadingAnchor, constant: imageLabelInset + 22),
-            textFour.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -textRightInset),
+        categoryTextTwo.snp.makeConstraints { make in
+            make.top.equalTo(categoryTextOne.snp.bottom).offset(amongInset)
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.trailing.equalTo(self.snp.trailing).inset(20)
+        }
 
-            numberViews[4].topAnchor.constraint(equalTo: textFour.bottomAnchor, constant: 20),
-            numberViews[4].leadingAnchor.constraint(equalTo: leadingAnchor, constant: imageLeftnset),
-            numberViews[4].heightAnchor.constraint(equalToConstant: imageSize),
-            numberViews[4].widthAnchor.constraint(equalToConstant: imageSize),
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(categoryTextTwo.snp.bottom).offset(amongInset)
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(self.snp.leading).offset(30)
+            make.trailing.equalTo(self.snp.trailing).inset(30)
+            make.bottom.equalToSuperview().inset(amongInset)
+        }
+    }
+}
 
-            textFive.topAnchor.constraint(equalTo: textFour.bottomAnchor, constant: amongInset + 7),
-            textFive.leadingAnchor.constraint(equalTo: numberViews[4].trailingAnchor, constant: imageLabelInset),
-            textFive.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -textRightInset),
+    //MARK: - Extension UICollectionViewDataSource, UICollectionViewDelegate
 
-            numberViews[5].topAnchor.constraint(equalTo: textFive.bottomAnchor, constant: amongInset + 7),
-            numberViews[5].leadingAnchor.constraint(equalTo: leadingAnchor, constant: imageLeftnset),
-            numberViews[5].heightAnchor.constraint(equalToConstant: imageSize),
-            numberViews[5].widthAnchor.constraint(equalToConstant: imageSize),
+extension HelpView: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
 
-            textSix.topAnchor.constraint(equalTo: textFive.bottomAnchor, constant: amongInset + 7),
-            textSix.leadingAnchor.constraint(equalTo: numberViews[5].trailingAnchor, constant: imageLabelInset),
-            textSix.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -textRightInset),
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
+        cell.contentView.layer.cornerRadius = 45
+        cell.contentView.layer.borderWidth = 1
+        cell.contentView.layer.borderColor = UIColor.black.cgColor
+        cell.configure(ExerciseModel.shared.getCategoryModel()[indexPath.row])
+        cell.checkButton.isHidden = true
 
-            numberViews[6].topAnchor.constraint(equalTo: textSix.bottomAnchor, constant: amongInset),
-            numberViews[6].leadingAnchor.constraint(equalTo: leadingAnchor, constant: imageLeftnset),
-            numberViews[6].heightAnchor.constraint(equalToConstant: imageSize),
-            numberViews[6].widthAnchor.constraint(equalToConstant: imageSize),
-
-            textSeven.topAnchor.constraint(equalTo: textSix.bottomAnchor, constant: amongInset + 7),
-            textSeven.leadingAnchor.constraint(equalTo: numberViews[6].trailingAnchor, constant: imageLabelInset),
-            textSeven.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -textRightInset),
-
-            categoryLabel.topAnchor.constraint(equalTo: textSeven.bottomAnchor, constant: 30),
-            categoryLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-
-            categoryTextOne.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 15),
-            categoryTextOne.centerXAnchor.constraint(equalTo: centerXAnchor),
-            categoryTextOne.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
-            categoryTextOne.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
-
-            categoryTextTwo.topAnchor.constraint(equalTo: categoryTextOne.bottomAnchor, constant: 30),
-            categoryTextTwo.centerXAnchor.constraint(equalTo: centerXAnchor),
-            categoryTextTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
-            categoryTextTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
-
-            categoriesStackView.topAnchor.constraint(equalTo: categoryTextTwo.bottomAnchor, constant: 30),
-            categoriesStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            categoriesStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            categoriesStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            categoriesStackView.heightAnchor.constraint(equalToConstant: 400)
-        ])
+        return cell
     }
 }

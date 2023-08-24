@@ -16,13 +16,13 @@ class GameViewController: UIViewController {
     
     //MARK: - UI Elements
     
-    private lazy var image: UIImageView = {
+    private lazy var backgroundImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "background")
         return image
     }()
     
-    private lazy var imageFire: UIImageView = {
+    private lazy var explosionImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "image9")
         image.alpha = 0
@@ -49,7 +49,7 @@ class GameViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 20)
         label.textColor = .purple
         label.alpha = 0.0
         return label
@@ -68,7 +68,7 @@ class GameViewController: UIViewController {
     private lazy var startButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .purple
-        button.layer.cornerRadius = 40
+        button.layer.cornerRadius = 30
         button.setTitle("Запустить", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         button.setTitleColor(.yellow, for: .normal)
@@ -81,7 +81,7 @@ class GameViewController: UIViewController {
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .purple
-        button.layer.cornerRadius = 40
+        button.layer.cornerRadius = 30
         button.setTitle("Другое задание", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         button.setTitleColor(.yellow, for: .normal)
@@ -121,59 +121,60 @@ class GameViewController: UIViewController {
     //MARK: - Methods
     
     private func setupViews() {
+
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let bombImageSize: CGFloat = (screenWidth - 30)
+        let explosionImageSize: CGFloat = (screenWidth - 100)
+        let buttonWidth: CGFloat = (screenWidth - 120)
+        let buttonHeight: CGFloat = (screenHeight / 13)
+        let amongInset: CGFloat = 10
+
+        [backgroundImage, startButton, headerLabel, boomImage, exerciseLabel, nextButton, explosionImage].forEach { view.addSubview($0) }
         
-        view.addSubview(image)
-        view.addSubview(startButton)
-        view.addSubview(headerLabel)
-        view.addSubview(boomImage)
-        view.addSubview(exerciseLabel)
-        view.addSubview(nextButton)
-        view.addSubview(imageFire)
-        
-        image.snp.makeConstraints { make in
+        backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        startButton.snp.makeConstraints { make in
-            make.width.equalTo(274)
-            make.height.equalTo(78)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(64)
-        }
-        
-        headerLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(130)
-        }
-        
+
         boomImage.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.equalTo(312)
-            make.height.equalTo(352)
+            make.width.equalTo(bombImageSize)
+            make.height.equalTo(bombImageSize)
+        }
+
+        headerLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-20)
         }
         
         exerciseLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(220)
-            make.bottom.equalTo(nextButton.snp.top).inset(16)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.bottom.equalTo(explosionImage.snp.top).offset(-amongInset - 5)
         }
-        
+
+        explosionImage.snp.makeConstraints { make in
+            make.height.equalTo(explosionImageSize)
+            make.width.equalTo(explosionImageSize)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(50)
+        }
+
         nextButton.snp.makeConstraints { make in
-            make.width.equalTo(274)
-            make.height.equalTo(78)
+            make.width.equalTo(buttonWidth)
+            make.height.equalTo(buttonHeight)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(startButton.snp.top).inset(-16)
+            make.top.equalTo(explosionImage.snp.bottom).offset(amongInset + 5)
         }
-        
-        imageFire.snp.makeConstraints { make in
-            make.height.equalTo(240)
-            make.width.equalTo(200)
-            make.top.equalTo(headerLabel.snp.bottom).inset(-16)
+
+        startButton.snp.makeConstraints { make in
+            make.width.equalTo(buttonWidth)
+            make.height.equalTo(buttonHeight)
             make.centerX.equalToSuperview()
+            make.top.equalTo(nextButton.snp.bottom).offset(amongInset + 3)
         }
     }
-    
+
     private func setupNavigation() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.titleView = titleLabel
@@ -320,7 +321,7 @@ class GameViewController: UIViewController {
                 self.headerLabel.text = "Проигравший выполнянет задание"
                 self.headerLabel.alpha = 1.0
                 self.exerciseLabel.alpha = 1.0
-                self.imageFire.alpha = 1.0
+                self.explosionImage.alpha = 1.0
             }
         }
     }
@@ -337,7 +338,7 @@ class GameViewController: UIViewController {
             self.exerciseLabel.alpha = 0.0
             self.nextButton.alpha = 0.0
             self.boomImage.alpha = 1.0
-            self.imageFire.alpha = 0.0
+            self.explosionImage.alpha = 0.0
         } completion: { _ in
             
             if sender.currentTitle != "Продолжить" {

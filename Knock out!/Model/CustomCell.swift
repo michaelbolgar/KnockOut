@@ -25,7 +25,7 @@ class CustomCell : UICollectionViewCell {
         label.textColor = .yellow
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 16)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 14)
         return label
     }()
     
