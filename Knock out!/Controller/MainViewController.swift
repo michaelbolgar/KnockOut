@@ -131,12 +131,9 @@ class MainViewController: UIViewController {
         }
 
         explosionImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
             make.leading.equalTo(view.snp.leading).offset(20)
             make.trailing.equalTo(view.snp.trailing).inset(20)
-            make.width.equalTo(imageSize)
-            make.height.equalTo(imageSize)
         }
 
         nameLabel.snp.makeConstraints { make in
@@ -200,5 +197,6 @@ class MainViewController: UIViewController {
     @objc private func helpButtonAction() {
         let helpVC = HelpViewController()
         navigationController?.pushViewController(helpVC, animated: true)
+        print ("help button touched")
     }
 }
