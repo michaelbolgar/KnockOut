@@ -18,7 +18,7 @@ class GameViewController: UIViewController {
     
     private lazy var backgroundImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "background")
+        image.image = UIImage(named: "backgroundRed")
         return image
     }()
     

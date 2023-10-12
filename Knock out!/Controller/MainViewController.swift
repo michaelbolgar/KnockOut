@@ -1,10 +1,3 @@
-//
-//  MainViewController.swift
-//  Knock out!
-//
-//  Created by Михаил Болгар on 07.08.2023.
-//
-
 import UIKit
 import SnapKit
 
@@ -12,93 +5,77 @@ class MainViewController: UIViewController {
 
     //MARK: - UI Elements
 
-    private lazy var backgroundImage = UIImageView(image: UIImage(named: "background"))
-    
-    private lazy var explosionImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "explosion"))
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    private lazy var backgroundImage = UIImageView(image: UIImage(named: "backgroundRed"))
     
     private lazy var bombImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "bomb"))
-        imageView.contentMode = .scaleAspectFit
+        let imageView = UIImageView(image: UIImage(named: "bomb2"))
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
-    
-    private lazy var gameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Игра для компании"
-        label.textAlignment = .center
-        label.textColor = .black
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 30)
-        return label
+
+    private lazy var explosionImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "explosion2"))
+        imageView.contentMode = .scaleToFill
+        return imageView
     }()
+
+    private lazy var gameLabel = UILabel.makeLabel(text: "Игра для компании",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 30),
+                                                   textColor: .black,
+                                                   numberOfLines: 1)
+
+    private lazy var nameLabel = UILabel.makeLabel(text: "БОМБА",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 50),
+                                                   textColor: .black,
+                                                   numberOfLines: 1)
     
-    private lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "БОМБА"
-        label.textAlignment = .center
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 50)
-        label.textColor = .systemPurple
-        label.layer.shadowColor = UIColor.black.cgColor
-        label.layer.shadowOffset = CGSize (width: 4.0, height: 4.0)
-        label.layer.shadowOpacity = 0.6
-        label.layer.shadowRadius = 0.4
-        return label
-    }()
-    
-    private lazy var helpButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .purple
-        button.layer.cornerRadius = 20
-        button.setTitle("?", for: .normal)
-        button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
-        button.setTitleColor(.yellow, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(helpButtonAction), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var startButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .purple
-        button.layer.cornerRadius = 30
-        button.setTitle("Cтарт игры", for: .normal)
-        button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
-        button.setTitleColor(.yellow, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(startButtonAction), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var categoryButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .purple
-        button.layer.cornerRadius = 30
-        button.setTitle("Категории", for: .normal)
-        button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
-        button.setTitleColor(.yellow, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
-        return button
-    }()
-    
+//    private lazy var helpButton: UIButton = {
+//        let button = UIButton()
+//        button.backgroundColor = .purple
+//        button.layer.cornerRadius = 20
+//        button.setTitle("?", for: .normal)
+//        button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
+//        button.setTitleColor(.yellow, for: .normal)
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.black.cgColor
+//        button.addTarget(self, action: #selector(helpButtonAction), for: .touchUpInside)
+//        return button
+//    }()
+
+    private lazy var helpButton = UIButton.makeButton(text: "?",
+                                                       color: UIColor.buttonYellow,
+                                                        font: UIFont(name: "DelaGothicOne-Regular", size: 30),
+                                                       textColor: UIColor.black,
+                                                       radius: 30,
+                                                       borderWidth: 2,
+                                                       borderColor: UIColor.black)
+
+    private lazy var startButton = UIButton.makeButton(text: "Старт",
+                                                       color: UIColor.buttonYellow,
+                                                        font: UIFont(name: "DelaGothicOne-Regular", size: 22),
+                                                       textColor: UIColor.black,
+                                                       radius: 30,
+                                                       borderWidth: 2,
+                                                       borderColor: UIColor.black)
+
+    private lazy var categoryButton = UIButton.makeButton(text: "Категории",
+                                                       color: UIColor.buttonYellow,
+                                                        font: UIFont(name: "DelaGothicOne-Regular", size: 22),
+                                                       textColor: UIColor.black,
+                                                       radius: 30,
+                                                       borderWidth: 2,
+                                                       borderColor: UIColor.black)
+
     private lazy var continuousButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .purple
+        button.backgroundColor = UIColor.buttonYellow
         button.layer.cornerRadius = 30
         button.setTitle("Продолжить", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
         button.setTitleColor(.yellow, for: .normal)
         button.setTitleColor(.gray, for: .disabled)
         button.isEnabled = UserDef.shared.checkState()
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.black.cgColor
         button.addTarget(self, action: #selector(continousButtonAction), for: .touchUpInside)
         return button
@@ -108,55 +85,65 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupUI()
+        setupSelectors()
     }
 
     //MARK: - Methods
 
-    private func setupUI() {
+    private func setupSelectors() {
+        helpButton.addTarget(self, action: #selector(helpButtonAction), for: .touchUpInside)
+        startButton.addTarget(self, action: #selector(startButtonAction), for: .touchUpInside)
+        categoryButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
+    }
 
-//        navigationController?.navigationBar.prefersLargeTitles = true
+    private func setupUI() {
 
         let amongInset: CGFloat = 7
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
-        let imageSize: CGFloat = (screenWidth - 30)
         let buttonWidth: CGFloat = (screenWidth - 100)
-        let buttonHeight: CGFloat = (screenHeight / 12)
+        let buttonHeight: CGFloat = (screenHeight * 0.07)
 
-        [backgroundImage, gameLabel, nameLabel, explosionImageView, startButton, continuousButton, categoryButton, helpButton].forEach { view.addSubview($0) }
+        print (screenWidth, screenHeight)
+        //844*390 for i14
+        //667*375.0 for SE
+
+        [backgroundImage, explosionImageView, bombImageView, gameLabel, nameLabel, startButton, continuousButton, categoryButton, helpButton].forEach { view.addSubview($0) }
         
         backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
-        explosionImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(view.snp.leading).offset(20)
-            make.trailing.equalTo(view.snp.trailing).inset(20)
+        explosionImageView.snp.makeConstraints{ make in
+            make.leading.equalTo(view.snp.leading).inset(-100)
+            make.bottom.equalTo(view.snp.bottom).inset(-13)
+            make.height.equalTo(screenHeight * 0.66)
+            make.width.equalTo(screenWidth * 1.15)
+        }
+
+        bombImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top).offset(screenHeight * 0.13)
+            make.trailing.equalTo(view.snp.trailing).offset(55)
+            make.height.equalTo(screenHeight * 0.42)
+            make.width.equalTo(screenWidth * 0.87)
         }
 
         nameLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(explosionImageView.snp.top).inset(amongInset - 10)
+            make.top.equalTo(bombImageView.snp.top).inset(5)
         }
-        
+
         gameLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(nameLabel.snp.top).inset(amongInset - 10)
+            make.bottom.equalTo(nameLabel.snp.top)
         }
 
         categoryButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(buttonWidth)
             make.bottom.equalTo(view.snp.bottom).inset(15)
-            make.height.equalTo(buttonHeight)
-        }
-
-        startButton.snp.makeConstraints { make in
-            make.top.equalTo(explosionImageView.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(buttonWidth)
             make.height.equalTo(buttonHeight)
         }
 
@@ -168,10 +155,16 @@ class MainViewController: UIViewController {
             make.height.equalTo(buttonHeight)
         }
 
+        startButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(buttonWidth)
+            make.height.equalTo(buttonHeight)
+        }
+
         helpButton.snp.makeConstraints { make in
-            make.size.equalTo(40)
-            make.trailing.equalTo(view.snp.trailing).inset(20)
-            make.bottom.equalTo(gameLabel.snp.top).inset(-3)
+            make.size.equalTo(60)
+            make.trailing.equalTo(view.snp.trailing).inset(10)
+            make.bottom.equalTo(startButton.snp.top).offset(-5)
 
         }
     }

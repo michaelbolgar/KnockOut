@@ -17,7 +17,7 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
     
     let backgroungImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "background")
+        imageView.image = UIImage(named: "backgroundRed")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -66,11 +66,11 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(scrollView)
         scrollView.addSubview(backgroungImageView)
         scrollView.addSubview(helpView)
-        helpView.heightAnchor.constraint(equalToConstant: 1400).isActive = true
+        helpView.heightAnchor.constraint(equalToConstant: 1400).isActive = true //это можно перенести в массив ниже
 
         scrollView.delegate = self
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.isScrollEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false //это вроде как можно убрать
+        scrollView.isScrollEnabled = true //это тоже
 
         NSLayoutConstraint.activate([
             

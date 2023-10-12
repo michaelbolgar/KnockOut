@@ -28,7 +28,7 @@ class CategoryViewController: UIViewController {
     
     let backgroungImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "background")
+        imageView.image = UIImage(named: "backgroundRed")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

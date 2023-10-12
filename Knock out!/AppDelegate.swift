@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Knock out!
-//
-//  Created by Михаил Болгар on 07.08.2023.
-//
-
 import UIKit
 
 @main
