@@ -10,6 +10,7 @@ class MainViewController: UIViewController {
     private lazy var bombImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "bomb2"))
         imageView.contentMode = .scaleToFill
+//        imageView.backgroundColor = .white
         return imageView
     }()
 
@@ -29,26 +30,13 @@ class MainViewController: UIViewController {
                                                    textColor: .black,
                                                    numberOfLines: 1)
     
-//    private lazy var helpButton: UIButton = {
-//        let button = UIButton()
-//        button.backgroundColor = .purple
-//        button.layer.cornerRadius = 20
-//        button.setTitle("?", for: .normal)
-//        button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
-//        button.setTitleColor(.yellow, for: .normal)
-//        button.layer.borderWidth = 1
-//        button.layer.borderColor = UIColor.black.cgColor
-//        button.addTarget(self, action: #selector(helpButtonAction), for: .touchUpInside)
-//        return button
-//    }()
-
-    private lazy var helpButton = UIButton.makeButton(text: "?",
-                                                       color: UIColor.buttonYellow,
-                                                        font: UIFont(name: "DelaGothicOne-Regular", size: 30),
-                                                       textColor: UIColor.black,
-                                                       radius: 30,
-                                                       borderWidth: 2,
-                                                       borderColor: UIColor.black)
+    private lazy var helpButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 20
+        button.setImage(UIImage(named: "questionButton"), for: .normal)
+        button.addTarget(self, action: #selector(helpButtonAction), for: .touchUpInside)
+        return button
+    }()
 
     private lazy var startButton = UIButton.makeButton(text: "Старт",
                                                        color: UIColor.buttonYellow,
@@ -105,6 +93,7 @@ class MainViewController: UIViewController {
         let screenHeight = UIScreen.main.bounds.height
         let buttonWidth: CGFloat = (screenWidth - 100)
         let buttonHeight: CGFloat = (screenHeight * 0.07)
+        let bombSize: CGFloat = (screenHeight * 0.42 + 20)
 
         print (screenWidth, screenHeight)
         //844*390 for i14
@@ -125,9 +114,9 @@ class MainViewController: UIViewController {
 
         bombImageView.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top).offset(screenHeight * 0.13)
-            make.trailing.equalTo(view.snp.trailing).offset(55)
-            make.height.equalTo(screenHeight * 0.42)
-            make.width.equalTo(screenWidth * 0.87)
+            make.trailing.equalTo(view.snp.trailing).offset(50)
+            make.height.equalTo(bombSize)
+            make.width.equalTo(bombSize - 50)
         }
 
         nameLabel.snp.makeConstraints { make in
