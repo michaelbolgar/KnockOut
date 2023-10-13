@@ -19,60 +19,40 @@ class HelpView: UIView {
 
     //MARK: - UI Elements
 
-    private lazy var rulesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Правила Игры"
-        label.textColor = .purple
-        label.numberOfLines = 0
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 32)
-        return label
-    }()
+    private lazy var rulesLabel = UILabel.makeLabel(text: "Правила игры",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 32),
+                                                   textColor: .black,
+                                                   numberOfLines: 1)
 
-    private lazy var text1 = DefaultHelpLabel(text: "Все игроки становятся в круг")
-    private lazy var text2 = DefaultHelpLabel(text: "Первый игрок берёт телефон и нажимает кнопку: \n \n")
-    private lazy var text3 = DefaultHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”")
-    private lazy var text4 = DefaultHelpLabel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку")
-    private lazy var text5 = DefaultHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба")
-    private lazy var text6 = DefaultHelpLabel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба")
-    private lazy var text7 = DefaultHelpLabel(text: "Проигравший игрок должен выполнить задание")
+    private lazy var text1 = UILabel.makeHelpLabel(text: "Все игроки становятся в круг")
+    private lazy var text2 = UILabel.makeHelpLabel(text: "Первый игрок берёт телефон и нажимает кнопку: \n \n")
+    private lazy var text3 = UILabel.makeHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”")
+    private lazy var text4 = UILabel.makeHelpLabel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку")
+    private lazy var text5 = UILabel.makeHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба")
+    private lazy var text6 = UILabel.makeHelpLabel(text: "Проигравшим считается тот, в чьих руках взорвалась бомба")
+    private lazy var text7 = UILabel.makeHelpLabel(text: "Проигравший игрок должен выполнить задание")
 
     private var startGame: UIImageView = {
         let startGame = UIImageView()
-        startGame.image = UIImage(named: "startGame")
+        startGame.image = UIImage(named: "startGameYellow")
+        startGame.contentMode = .scaleAspectFill
         return startGame
     }()
 
-    private lazy var categoryLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Категории"
-        label.textColor = .purple
-        label.numberOfLines = 0
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 32)
-        return label
-    }()
+    private lazy var categoryLabel = UILabel.makeLabel(text: "Категории",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 32),
+                                                   textColor: .black,
+                                                   numberOfLines: 1)
 
+    private lazy var categoryTextOne = UILabel.makeLabel(text: "В игре доступно 6 категорий и более 90 вопросов",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 20),
+                                                   textColor: .black,
+                                                   numberOfLines: 0)
 
-    private lazy var categoryTextOne: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "В игре доступно 6 категорий и более 90 вопросов"
-        label.textAlignment = .center
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 20)
-        return label
-    }()
-
-    private lazy var categoryTextTwo: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Можно выбрать сразу несколько категорий для игры"
-        label.textAlignment = .center
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 20)
-        return label
-    }()
+    private lazy var categoryTextTwo = UILabel.makeLabel(text: "Можно выбрать сразу несколько категорий для игры",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 20),
+                                                   textColor: .black,
+                                                   numberOfLines: 0)
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -92,6 +72,7 @@ class HelpView: UIView {
     override init (frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = .clear
         createNumbers()
         createLabelPool()
         layout()
@@ -106,8 +87,9 @@ class HelpView: UIView {
     private func createNumberView(_ number: Int) -> UIImageView? {
         if let image = UIImage (named: "helpViewImage\(number)") {
             let imageView = UIImageView(image: image)
-            imageView.layer.cornerRadius = photoSize / 2
-            imageView.contentMode = .scaleAspectFit
+//            imageView.layer.cornerRadius = photoSize / 2
+            imageView.backgroundColor = .brown
+            imageView.contentMode = .scaleToFill
             imageView.clipsToBounds = true
             return imageView
         } else {
@@ -138,9 +120,9 @@ class HelpView: UIView {
 
     private func layout() {
 
-        [rulesLabel, startGame, categoryLabel, categoryTextOne, categoryTextTwo, collectionView].forEach { self.addSubview($0) }
-
         let amongInset: CGFloat = 20
+
+        [rulesLabel, startGame, categoryLabel, categoryTextOne, categoryTextTwo, collectionView].forEach { self.addSubview($0) }
 
         rulesLabel.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)

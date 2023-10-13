@@ -1,11 +1,5 @@
-//
-//  HelpViewController.swift
-//  Knock out!
-//
-//  Created by Михаил Болгар on 07.08.2023.
-//
-
 import UIKit
+import SnapKit
 
 class HelpViewController: UIViewController, UIScrollViewDelegate {
 
@@ -14,35 +8,30 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
     let helpView = HelpView()
 
     //MARK: - UI Elements
-    
-    let backgroungImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "backgroundRed")
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+
+    private lazy var backgroundImage = UIImageView(image: UIImage(named: "secondBackgroundWhite"))
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.textAlignment = .center
-        label.text = "Помощь"
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
-        label.textColor = .purple
-        return label
-    }()
+
+    private lazy var titleLabel = UILabel.makeLabel(text: "Помощь",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 28),
+                                                   textColor: .black,
+                                                   numberOfLines: 1)
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "chevron.backward.circle.fill"), style: .done, target: self, action: #selector(tapBack))
-        button.tintColor = .purple
+        button.tintColor = UIColor.buttonRed
         return button
+    }()
+
+    private lazy var bombImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "bomb20%"))
+        imageView.contentMode = .scaleToFill
+        return imageView
     }()
 
     //MARK: - Init
@@ -63,8 +52,9 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func layout() {
+        view.addSubview(backgroundImage)
         view.addSubview(scrollView)
-        scrollView.addSubview(backgroungImageView)
+        scrollView.addSubview(bombImageView)
         scrollView.addSubview(helpView)
         helpView.heightAnchor.constraint(equalToConstant: 1400).isActive = true //это можно перенести в массив ниже
 
@@ -72,17 +62,28 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
         scrollView.showsHorizontalScrollIndicator = false //это вроде как можно убрать
         scrollView.isScrollEnabled = true //это тоже
 
+        //привести в единый вид - через снэпкит
+        let screenHeight = UIScreen.main.bounds.height
+        let bombSize: CGFloat = (screenHeight * 0.42 + 20)
+
+        backgroundImage.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        bombImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top)
+            make.trailing.equalTo(view.snp.trailing).offset(50)
+            make.height.equalTo(bombSize)
+            make.width.equalTo(bombSize - 50)
+        }
+
+
         NSLayoutConstraint.activate([
-            
+
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            backgroungImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroungImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroungImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroungImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             helpView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             helpView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),

@@ -1,9 +1,4 @@
-//
-//  DefaultLabel.swift
-//  Knock out!
-//
-//  Created by Михаил Болгар on 12.08.2023.
-//
+// можно удалить
 
 import Foundation
 import UIKit

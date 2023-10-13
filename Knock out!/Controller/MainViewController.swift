@@ -100,7 +100,7 @@ class MainViewController: UIViewController {
         //667*375.0 for SE
 
         [backgroundImage, explosionImageView, bombImageView, gameLabel, nameLabel, startButton, continuousButton, categoryButton, helpButton].forEach { view.addSubview($0) }
-        
+
         backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
