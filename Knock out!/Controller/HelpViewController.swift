@@ -9,7 +9,7 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
 
     //MARK: - UI Elements
 
-    private lazy var backgroundImage = UIImageView(image: UIImage(named: "secondBackgroundWhite"))
+    private lazy var backgroundImage = UIImageView(image: UIImage(named: "background5"))
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -29,8 +29,9 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
     }()
 
     private lazy var bombImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "bomb20%"))
+        let imageView = UIImageView(image: UIImage(named: "bomb2"))
         imageView.contentMode = .scaleToFill
+        imageView.alpha = 0.2
         return imageView
     }()
 
@@ -38,7 +39,6 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         layout()
         setupNavigation()
     }
@@ -72,9 +72,9 @@ class HelpViewController: UIViewController, UIScrollViewDelegate {
 
         bombImageView.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top)
-            make.trailing.equalTo(view.snp.trailing).offset(50)
-            make.height.equalTo(bombSize)
-            make.width.equalTo(bombSize - 50)
+            make.trailing.equalTo(view.snp.trailing).offset(85)
+            make.height.equalTo(bombSize - 25)
+            make.width.equalTo(bombSize - 75)
         }
 
 

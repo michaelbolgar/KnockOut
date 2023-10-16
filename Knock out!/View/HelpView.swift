@@ -1,10 +1,3 @@
-//
-//  HelpView.swift
-//  Knock out!
-//
-//  Created by Михаил Болгар on 07.08.2023.
-//
-
 import Foundation
 import UIKit
 import SnapKit
@@ -15,7 +8,7 @@ class HelpView: UIView {
 
     private var numberViews: [UIImageView] = []
     private var labelArray: [UILabel] = []
-    private var photoSize: CGFloat = 40
+    private var photoSize: CGFloat = 36
 
     //MARK: - UI Elements
 
@@ -25,7 +18,7 @@ class HelpView: UIView {
                                                    numberOfLines: 1)
 
     private lazy var text1 = UILabel.makeHelpLabel(text: "Все игроки становятся в круг")
-    private lazy var text2 = UILabel.makeHelpLabel(text: "Первый игрок берёт телефон и нажимает кнопку: \n \n")
+    private lazy var text2 = UILabel.makeHelpLabel(text: "Первый игрок берёт телефон и нажимает кнопку: \n")
     private lazy var text3 = UILabel.makeHelpLabel(text: "На экране появляется вопрос “Назовите Фрукт”")
     private lazy var text4 = UILabel.makeHelpLabel(text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку")
     private lazy var text5 = UILabel.makeHelpLabel(text: "Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба")
@@ -36,6 +29,10 @@ class HelpView: UIView {
         let startGame = UIImageView()
         startGame.image = UIImage(named: "startGameYellow")
         startGame.contentMode = .scaleAspectFill
+        startGame.layer.shadowColor = UIColor.black.cgColor
+        startGame.layer.shadowOpacity = 0.5
+        startGame.layer.shadowOffset = CGSize(width: 0, height: 2)
+        startGame.layer.shadowRadius = 4
         return startGame
     }()
 
@@ -85,11 +82,10 @@ class HelpView: UIView {
     //MARK: - Methods
 
     private func createNumberView(_ number: Int) -> UIImageView? {
-        if let image = UIImage (named: "helpViewImage\(number)") {
+        if let image = UIImage (named: "number\(number)") {
             let imageView = UIImageView(image: image)
-//            imageView.layer.cornerRadius = photoSize / 2
-            imageView.backgroundColor = .brown
-            imageView.contentMode = .scaleToFill
+            imageView.layer.cornerRadius = photoSize / 2
+            imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             return imageView
         } else {
@@ -100,7 +96,6 @@ class HelpView: UIView {
     private func createNumbers() {
         for i in 1...7 {
             if let imageView = createNumberView(i) {
-                imageView.contentMode = .scaleAspectFill
                 numberViews.append(imageView)
                 self.addSubview(imageView)
             }
@@ -148,7 +143,7 @@ class HelpView: UIView {
 
             label.snp.makeConstraints { make in
                 make.leading.equalTo(view.snp.trailing).offset(4)
-                make.top.equalTo(view.snp.top).inset(6)
+                make.top.equalTo(view.snp.top).inset(3)
                 make.trailing.equalTo(self.snp.trailing).inset(photoSize)
             }
 
@@ -157,10 +152,10 @@ class HelpView: UIView {
             }
 
         startGame.snp.makeConstraints { make in
-            make.bottom.equalTo(labelArray[2].snp.top).inset(-12)
+            make.top.equalTo(labelArray[1].snp.bottom).inset(12)
             make.centerX.equalToSuperview()
             make.width.equalTo(130)
-            make.height.equalTo(45)
+            make.height.equalTo(25)
         }
 
         categoryLabel.snp.makeConstraints { make in

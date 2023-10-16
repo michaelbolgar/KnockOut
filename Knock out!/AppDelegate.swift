@@ -14,7 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let gameVC = GameViewController()
         currentGameVC = gameVC
         
-        window?.rootViewController = createMainViewController()
+//        window?.rootViewController = createMainViewController()
+//        window?.rootViewController = createHelpViewController()
+        window?.rootViewController = createCategoryViewController()
         self.window?.makeKeyAndVisible()
         
         return true

@@ -22,10 +22,10 @@ class CustomCell : UICollectionViewCell {
     private lazy var title: UILabel = {
         let label = UILabel()
         label.text = "Искусство и кино"
-        label.textColor = .yellow
+        label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 14)
+        label.font = UIFont(name: "DelaGothicOne-Regular", size: 18)
         return label
     }()
     
@@ -55,7 +55,7 @@ class CustomCell : UICollectionViewCell {
     
     private func setupViews() {
         
-        contentView.backgroundColor = .purple
+        contentView.backgroundColor = UIColor.buttonYellow
         
         contentView.addSubview(checkButton)
         contentView.addSubview(logoImage)
