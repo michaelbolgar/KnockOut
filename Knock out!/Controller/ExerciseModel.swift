@@ -14,21 +14,7 @@ class ExerciseModel {
     var index: Set<Int> = []
     
     private var model: [CategoryModel]?
-    
-    private var anyQuestions = [
 
-        "Куда можно сходить на первое свидание?",
-        "Чем можно заняться в свободный вечер?",
-        "С чем можно сделать бутерброд?",
-        "Какую вещь лучше не иметь при себе, когда вас останавливает полицейский?",
-        "Какие вещи непременно нужно взять с собой в космос?",
-        "Назовите известные бренды одежды",
-        "В каких странах легализовано курение марихуаны?",
-        "В каких странах закреплено левостороннее движение автомобиля?",
-        "Назовите простые числа",
-        "Назовите элементы таблицы Менделеева"
-    ]
-    
     private var geographyQuestions = [
 
         "Какие страны входят в Евросоюз?",
@@ -139,6 +125,20 @@ class ExerciseModel {
         "Назовите различные виды круп",
         "Назовите блюда из морепродуктов"
     ]
+
+    private var anyQuestions = [
+
+        "Куда можно сходить на первое свидание?",
+        "Чем можно заняться в свободный вечер?",
+        "С чем можно сделать бутерброд?",
+        "Какую вещь лучше не иметь при себе, когда вас останавливает полицейский?",
+        "Какие вещи непременно нужно взять с собой в космос?",
+        "Назовите известные бренды одежды",
+        "В каких странах легализовано курение марихуаны?",
+        "В каких странах закреплено левостороннее движение автомобиля?",
+        "Назовите простые числа",
+        "Назовите элементы таблицы Менделеева"
+    ]
     
     private var tasks = [
 
@@ -149,35 +149,38 @@ class ExerciseModel {
         "Нарисовать себе кошачьи усы",
         "Сказать комплимент каждому из присутствующих",
         "Художественно спародировать животное, в год которого он родился",
-        "Выбрать одного из игроков и обращаться к нему 'Моя прелесть' до конца игры",
+        "Выбрать одного из игроков и обращаться к нему 'Моя прелесть' до конца вечера",
         "Сделать массаж одному из игроков на выбор",
         "Рассказать нелепую историю из детства",
-        "Обнять каждого присутствующего",
+        "Обнять каждого игрока",
         "Сделать селфи с каждым из игроков, корча смешные рожицы",
         "Произнести предвыборную речь на пост главы подъезда",
         "Говорить с иностранным акцентом следующие три раунда",
-        "Быть официантом для всех присутствующих в течение получаса",
+        "Быть официантом для всех игроков в течение получаса",
         "Показать самое первое фото в галерее",
-        "Показать пантомимой любимую диснеевскую принцессу. Остальные игроки должны отгадать её",
+        "Показывать пантомимой любимую диснеевскую принцессу, пока остальные игроки не отгадают её",
         "Рассказать про лучшую поездку в своей жизни",
         "Рассказать про стрессовую ситуацию из своей жизни",
         "Рассказать про свою постыдную слабость",
-        "Давать по два правильных ответа на вопрос следующего раунда",
+        "Давать сразу по два правильных ответа на вопрос следующего раунда",
         "Выполнить любое желание игрока напротив",
-        "Сделать забавное селфи со всеми присутствующими и выложить в сторис в любой социальной сети",
+        "Сделать забавное селфи со всеми игроками и выложить в сторис в любой социальной сети",
+        "Сделать 15 приседаний",
+        "Сделать 10 отжиманий",
+        "Позволить кому-то из игроков сделать себе макияж"
     ]
-    
-    private init() {}
     
     func createCategoryModel() {
         
         var category = [
-            CategoryModel(name: "О разном", image: UIImage(named: "cat1") ?? UIImage()),
+            CategoryModel(name: "География", image: UIImage(named: "cat1") ?? UIImage()),
             CategoryModel(name: "Спорт", image: UIImage(named: "cat2") ?? UIImage()),
-            CategoryModel(name: "Про жизнь", image: UIImage(named: "cat3") ?? UIImage()),
-            CategoryModel(name: "Знаменитости", image: UIImage(named: "cat4") ?? UIImage()),
-            CategoryModel(name: "Искусство и кино", image: UIImage(named: "cat5") ?? UIImage()),
-            CategoryModel(name: "Природа", image: UIImage(named: "cat6") ?? UIImage())]
+            CategoryModel(name: "Искусство", image: UIImage(named: "artImage") ?? UIImage()),
+            CategoryModel(name: "Природа", image: UIImage(named: "cat5") ?? UIImage()),
+            CategoryModel(name: "Техника", image: UIImage(named: "technologyImage") ?? UIImage()),
+            CategoryModel(name: "История", image: UIImage(named: "historyImage") ?? UIImage()),
+            CategoryModel(name: "Еда", image: UIImage(named: "foodImage") ?? UIImage()),
+            CategoryModel(name: "О разном", image: UIImage(named: "cat6") ?? UIImage())]
         
         index.forEach { value in
             category[value].isSelected = !category[value].isSelected!
@@ -196,12 +199,14 @@ class ExerciseModel {
         var category = [String]()
         
         if index.isEmpty {
-            category.append(contentsOf: anyQuestions)
-            category.append(contentsOf: sportQuestions)
             category.append(contentsOf: geographyQuestions)
-            category.append(contentsOf: foodQuestions)
+            category.append(contentsOf: sportQuestions)
             category.append(contentsOf: moviesAndCultureQuestions)
             category.append(contentsOf: natureQuestions)
+            category.append(contentsOf: technicalQuestions)
+            category.append(contentsOf: historyQuestions)
+            category.append(contentsOf: foodQuestions)
+            category.append(contentsOf: anyQuestions)
         }
         
         index.forEach { index in
@@ -209,24 +214,30 @@ class ExerciseModel {
             switch index {
                 
             case 0:
-                category.append(contentsOf: anyQuestions)
+                category.append(contentsOf: geographyQuestions)
             case 1:
                 category.append(contentsOf: sportQuestions)
             case 2:
-                category.append(contentsOf: geographyQuestions)
+                category.append(contentsOf: moviesAndCultureQuestions)
             case 3:
-                category.append(contentsOf: foodQuestions)
+                category.append(contentsOf: natureQuestions)
             case 4:
-                category.append(contentsOf: moviesAndCultureQuestions)
+                category.append(contentsOf: technicalQuestions)
             case 5:
-                category.append(contentsOf: natureQuestions)
-            default:
-                category.append(contentsOf: anyQuestions)
-                category.append(contentsOf: sportQuestions)
-                category.append(contentsOf: geographyQuestions)
+                category.append(contentsOf: historyQuestions)
+            case 6:
                 category.append(contentsOf: foodQuestions)
+            case 7:
+                category.append(contentsOf: anyQuestions)
+            default:
+                category.append(contentsOf: geographyQuestions)
+                category.append(contentsOf: sportQuestions)
                 category.append(contentsOf: moviesAndCultureQuestions)
                 category.append(contentsOf: natureQuestions)
+                category.append(contentsOf: technicalQuestions)
+                category.append(contentsOf: historyQuestions)
+                category.append(contentsOf: foodQuestions)
+                category.append(contentsOf: anyQuestions)
             }
         }
         

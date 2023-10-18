@@ -2,7 +2,14 @@ import UIKit
 import SnapKit
 
 class CategoryViewController: UIViewController {
-    
+
+    //MARK: - Properties
+
+    static let screenWidth = UIScreen.main.bounds.width
+    static let sideInset: CGFloat = 20
+    static let amongInset: CGFloat = 10
+    static let cellSize: CGFloat = ((screenWidth - (sideInset * 2) - amongInset) / 2 - 10)
+
     //MARK: - UI Elements
 
     let backgroungImageView: UIImageView = {
@@ -20,12 +27,14 @@ class CategoryViewController: UIViewController {
         return imageView
     }()
 
+    //динамически рассчитать размер ячейки + располагать их по центру, рассчитывая по ширине экрана
+    //добавить распознание тапа по всей ячейке, не только по чеку
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 174, height: 174)
-        layout.minimumLineSpacing = 12
+        layout.itemSize = CGSize(width: CategoryViewController.cellSize, height: CategoryViewController.cellSize)
+        layout.minimumLineSpacing = CategoryViewController.amongInset
         view.delegate = self
         view.dataSource = self
         view.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
@@ -85,7 +94,7 @@ class CategoryViewController: UIViewController {
         }
 
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(16)
+            make.edges.equalToSuperview().inset(CategoryViewController.sideInset)
         }
     }
     
@@ -105,7 +114,7 @@ extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
         cell.checkButton.tag = indexPath.row
         cell.contentView.layer.cornerRadius = 45
-        cell.contentView.layer.borderWidth = 1
+        cell.contentView.layer.borderWidth = 2
         cell.contentView.layer.borderColor = UIColor.black.cgColor
         cell.configure(ExerciseModel.shared.getCategoryModel()[indexPath.row])
         
