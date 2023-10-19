@@ -55,7 +55,7 @@ class HelpView: UIView {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 150, height: 150)
+        layout.itemSize = CGSize(width: CategoryViewController.cellSize, height: CategoryViewController.cellSize)
         layout.minimumLineSpacing = 12
         view.delegate = self
         view.dataSource = self
