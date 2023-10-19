@@ -15,7 +15,7 @@ class ExerciseModel {
     
     private var model: [CategoryModel]?
 
-    private var geographyQuestions = [
+    private lazy var geographyQuestions = [
 
         "geo"
 
@@ -34,7 +34,7 @@ class ExerciseModel {
 //        "Какие валюты существуют в современном мире?"
     ]
 
-    private var sportQuestions = [
+    private lazy var sportQuestions = [
 
         "sport"
 
@@ -51,7 +51,7 @@ class ExerciseModel {
 //        "Назовите известные бренды спортивной одежды",
     ]
     
-    private var moviesAndCultureQuestions = [
+    private lazy var moviesAndCultureQuestions = [
 
         "movies"
         
@@ -72,7 +72,7 @@ class ExerciseModel {
 //        "Назовите актёров, игравших в марвеловских 'Мстителях'"
     ]
     
-    private var natureQuestions = [
+    private lazy var natureQuestions = [
 
         "nature"
 
@@ -124,7 +124,7 @@ class ExerciseModel {
 //        "Назовите известных преступников"
     ]
 
-    private var foodQuestions = [
+    private lazy var foodQuestions = [
 
         "food"
 
@@ -140,7 +140,7 @@ class ExerciseModel {
 //        "Назовите блюда из морепродуктов"
     ]
 
-    private var anyQuestions = [
+    private lazy var anyQuestions = [
 
         "any"
 
@@ -156,7 +156,7 @@ class ExerciseModel {
 //        "Назовите элементы таблицы Менделеева"
     ]
     
-    private var tasks = [
+    private lazy var tasks = [
 
         "Кричать 'ого!' и 'ничего себе!' после каждого ответа в следующем раунде",
         "Вести себя как обезьяна в течение следующих двух раундов",
@@ -185,6 +185,9 @@ class ExerciseModel {
         "Сделать 10 отжиманий",
         "Позволить кому-то из игроков сделать себе макияж"
     ]
+
+    //массив для циклического использования заданий выше
+    private lazy var tasksSecondPool: [String] = []
     
     func createCategoryModel() {
         
@@ -261,6 +264,23 @@ class ExerciseModel {
     }
     
     func randomTask() -> String {
-        return tasks[Int.random(in: 0..<tasks.count)]
+
+        guard !tasks.isEmpty else {
+
+            if tasksSecondPool.isEmpty {
+                   return "nil"
+               } else {
+                   tasks = tasksSecondPool
+                   tasksSecondPool.removeAll()
+               }
+            return "Бонус-задание: все пьют!"
+           }
+
+        let randomIndex = Int.random(in: 0..<tasks.count)
+        let task = tasks[randomIndex]
+
+        tasksSecondPool.append(task)
+        tasks.remove(at: randomIndex)
+        return task
     }
 }
