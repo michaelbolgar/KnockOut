@@ -16,7 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        window?.rootViewController = createMainViewController()
 //        window?.rootViewController = createHelpViewController()
-        window?.rootViewController = createCategoryViewController()
+//        window?.rootViewController = createCategoryViewController()
+        window?.rootViewController = createGameViewController()
+
         self.window?.makeKeyAndVisible()
         
         return true
@@ -35,6 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func createCategoryViewController() -> UINavigationController {
         let categoryVC = CategoryViewController()
         return UINavigationController(rootViewController: categoryVC)
+    }
+
+    func createGameViewController() -> UINavigationController {
+        let gameVC = GameViewController()
+        return UINavigationController(rootViewController: gameVC)
     }
     
     //MARK: - UserDefaults

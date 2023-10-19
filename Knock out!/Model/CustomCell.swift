@@ -76,7 +76,7 @@ class CustomCell : UICollectionViewCell {
         categoryLabel.snp.makeConstraints { make in
             make.width.equalTo(144)
             make.height.equalTo(50)
-            make.top.equalTo(logoImage.snp.bottom).inset(12)
+            make.bottom.equalTo(contentView.snp.bottom).inset(2)
             make.centerX.equalToSuperview()
         }
     }

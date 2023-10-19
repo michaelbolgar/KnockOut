@@ -12,23 +12,8 @@ class CategoryViewController: UIViewController {
 
     //MARK: - UI Elements
 
-    let backgroungImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "background5")
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private lazy var backgroung = SecondBackground()
 
-    private lazy var bombImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "bomb2"))
-        imageView.contentMode = .scaleToFill
-        imageView.alpha = 0.2
-        return imageView
-    }()
-
-    //динамически рассчитать размер ячейки + располагать их по центру, рассчитывая по ширине экрана
-    //добавить распознание тапа по всей ячейке, не только по чеку
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -70,27 +55,16 @@ class CategoryViewController: UIViewController {
     //MARK: - Methods
     
     private func setupViews() {
-
-        let screenHeight = UIScreen.main.bounds.height
-        let bombSize: CGFloat = (screenHeight * 0.42 + 20)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.titleView = headerLabel
         navigationItem.leftBarButtonItem = backButton
         
-        view.addSubview(backgroungImageView)
-        view.addSubview(bombImageView)
+        view.addSubview(backgroung)
         view.addSubview(collectionView)
         
-        backgroungImageView.snp.makeConstraints { make in
+        backgroung.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-        }
-
-        bombImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
-            make.trailing.equalTo(view.snp.trailing).offset(85)
-            make.height.equalTo(bombSize - 25)
-            make.width.equalTo(bombSize - 75)
         }
 
         collectionView.snp.makeConstraints { make in
@@ -117,16 +91,22 @@ extension CategoryViewController: UICollectionViewDataSource, UICollectionViewDe
         cell.contentView.layer.borderWidth = 2
         cell.contentView.layer.borderColor = UIColor.black.cgColor
         cell.configure(ExerciseModel.shared.getCategoryModel()[indexPath.row])
-        
-        cell.completionHandler = { value in
-            
-            if ExerciseModel.shared.index.contains(value) {
-                ExerciseModel.shared.index.remove(value)
-            } else {
-                ExerciseModel.shared.index.insert(value)
-            }
-        }
-        
+        cell.checkButton.isSelected = true
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let cell = collectionView.cellForItem(at: indexPath) as! CustomCell
+        let value = indexPath.row
+
+        if ExerciseModel.shared.index.contains(value) {
+            ExerciseModel.shared.index.remove(value)
+        } else {
+            ExerciseModel.shared.index.insert(value)
+        }
+
+        cell.checkButton.isSelected = ExerciseModel.shared.index.contains(value)
+
     }
 }

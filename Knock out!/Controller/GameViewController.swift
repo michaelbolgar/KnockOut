@@ -8,7 +8,7 @@ class GameViewController: UIViewController {
     
     private var isSelected = true
     private var timer: Timer?
-    private var timeInterval: TimeInterval = 10.0
+    private var timeInterval: TimeInterval = 1.0
     private var playerFire: AVAudioPlayer?
     private var playerBoom: AVAudioPlayer?
     private var backgroundMusic: AVAudioPlayer?
@@ -16,15 +16,12 @@ class GameViewController: UIViewController {
     
     //MARK: - UI Elements
     
-    private lazy var backgroundImage: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "backgroundRed")
-        return image
-    }()
+    private lazy var background = SecondBackground()
     
     private lazy var explosionImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "image9")
+        image.image = UIImage(named: "explosion2")
+//        image.backgroundColor = .white
         image.alpha = 0
         return image
     }()
@@ -34,73 +31,66 @@ class GameViewController: UIViewController {
         image.image = UIImage(named: "animation1")
         return image
     }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 3
-        label.textAlignment = .center
-        label.text = "Игра"
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 28)
-        label.textColor = .purple
-        return label
-    }()
+
+    private lazy var titleLabel = UILabel.makeLabel(text: "Игра",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 28),
+                                                     textColor: .black,
+                                                   numberOfLines: 1)
     
     private lazy var exerciseLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
+//        label.backgroundColor = .white
         label.font = UIFont(name: "DelaGothicOne-Regular", size: 20)
-        label.textColor = .purple
+        label.textColor = .black
         label.alpha = 0.0
         return label
     }()
-    
-    private lazy var headerLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Нажмите “Запустить” чтобы начать игру"
-        label.numberOfLines = 5
-        label.textAlignment = .center
-        label.font = UIFont(name: "DelaGothicOne-Regular", size: 24)
-        label.textColor = .purple
-        return label
-    }()
-    
+
+    private lazy var headerLabel = UILabel.makeLabel(text: "Нажмите “Запустить” чтобы начать игру",
+                                                   font: UIFont(name: "DelaGothicOne-Regular", size: 24),
+                                                     textColor: .black,
+                                                   numberOfLines: 2)
+
+    //не используем extension, потому что на этом экране много работы со свойствами кнопок
+
     private lazy var startButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .purple
+        button.backgroundColor = UIColor.buttonYellow
         button.layer.cornerRadius = 30
-        button.setTitle("Запустить", for: .normal)
+        button.setTitle("Старт игры", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
-        button.setTitleColor(.yellow, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(tapStart), for: .touchUpInside)
+        button.addTarget(self, action: #selector(startButtonAction), for: .touchUpInside)
         return button
     }()
-    
-    private lazy var nextButton: UIButton = {
+
+    private lazy var anotherTaskButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .purple
+        button.backgroundColor = UIColor.buttonYellow
         button.layer.cornerRadius = 30
         button.setTitle("Другое задание", for: .normal)
         button.titleLabel?.font = UIFont(name: "DelaGothicOne-Regular", size: 22)
-        button.setTitleColor(.yellow, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
         button.alpha = 0
-        button.addTarget(self, action: #selector(tapNext), for: .touchUpInside)
+        button.addTarget(self, action: #selector(anotherTaskButtonAction), for: .touchUpInside)
         return button
     }()
     
     private lazy var pauseButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "pause.circle.fill"), style: .done, target: self, action: #selector(tapPause))
-        button.tintColor = .purple
+        button.tintColor = UIColor.buttonRed
         return button
     }()
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "chevron.backward.circle.fill"), style: .done, target: self, action: #selector(tapBack))
-        button.tintColor = .purple
+        button.tintColor = UIColor.buttonRed
         return button
     }()
     
@@ -125,14 +115,14 @@ class GameViewController: UIViewController {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         let bombImageSize: CGFloat = (screenWidth - 30)
-        let explosionImageSize: CGFloat = (screenWidth - 100)
+        let explosionImageSize: CGFloat = (screenWidth - 60)
         let buttonWidth: CGFloat = (screenWidth - 120)
         let buttonHeight: CGFloat = (screenHeight / 13)
         let amongInset: CGFloat = 10
 
-        [backgroundImage, startButton, headerLabel, boomImage, exerciseLabel, nextButton, explosionImage].forEach { view.addSubview($0) }
+        [background,  explosionImage, startButton, headerLabel, boomImage, exerciseLabel, anotherTaskButton].forEach { view.addSubview($0) }
         
-        backgroundImage.snp.makeConstraints { make in
+        background.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
@@ -145,33 +135,33 @@ class GameViewController: UIViewController {
         headerLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-20)
+            make.bottom.equalTo(exerciseLabel.snp.top).inset(-amongInset)
         }
         
         exerciseLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.bottom.equalTo(explosionImage.snp.top).offset(-amongInset - 5)
+            make.bottom.equalTo(explosionImage.snp.top)
         }
 
         explosionImage.snp.makeConstraints { make in
-            make.height.equalTo(explosionImageSize)
+            make.height.equalTo(explosionImageSize + 20)
             make.width.equalTo(explosionImageSize)
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(50)
+            make.centerY.equalToSuperview().offset(60)
         }
 
-        nextButton.snp.makeConstraints { make in
+        anotherTaskButton.snp.makeConstraints { make in
             make.width.equalTo(buttonWidth)
             make.height.equalTo(buttonHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(explosionImage.snp.bottom).offset(amongInset + 5)
+            make.top.equalTo(explosionImage.snp.bottom).inset(amongInset)
         }
 
         startButton.snp.makeConstraints { make in
             make.width.equalTo(buttonWidth)
             make.height.equalTo(buttonHeight)
             make.centerX.equalToSuperview()
-            make.top.equalTo(nextButton.snp.bottom).offset(amongInset + 3)
+            make.top.equalTo(anotherTaskButton.snp.bottom).offset(amongInset + 3)
         }
     }
 
@@ -213,7 +203,7 @@ class GameViewController: UIViewController {
     
     //MARK: - Button's targets
     
-    @objc private func tapStart() {
+    @objc private func startButtonAction() {
         hideStartButton(startButton)
         startAnimation()
     }
@@ -245,7 +235,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    @objc private func tapNext() {
+    @objc private func anotherTaskButtonAction() {
         UIView.animate(withDuration: 0.4) {
             self.exerciseLabel.alpha = 0
         } completion: { _ in
@@ -314,11 +304,11 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 0.7) {
             self.boomImage.alpha = 0.0
             self.headerLabel.alpha = 0.0
-            self.nextButton.alpha = 1.0
+            self.anotherTaskButton.alpha = 1.0
             self.startButton.alpha = 1.0
         } completion: { _ in
             UIView.animate(withDuration: 0.7) {
-                self.headerLabel.text = "Проигравший выполнянет задание"
+                self.headerLabel.text = "Проигравший выполняет задание"
                 self.headerLabel.alpha = 1.0
                 self.exerciseLabel.alpha = 1.0
                 self.explosionImage.alpha = 1.0
@@ -336,7 +326,7 @@ class GameViewController: UIViewController {
             
             self.startButton.alpha = 0
             self.exerciseLabel.alpha = 0.0
-            self.nextButton.alpha = 0.0
+            self.anotherTaskButton.alpha = 0.0
             self.boomImage.alpha = 1.0
             self.explosionImage.alpha = 0.0
         } completion: { _ in
@@ -355,7 +345,7 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: 0.7) {
             self.startButton.alpha = 0
             self.exerciseLabel.alpha = 0.0
-            self.nextButton.alpha = 0.0
+            self.anotherTaskButton.alpha = 0.0
             self.boomImage.alpha = 1.0
         }
     }
